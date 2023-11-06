@@ -1,0 +1,20 @@
+<!-- doctor-edit-dialog.component.html -->
+<h1>Edit Doctor</h1>
+<form [formGroup]="doctorForm">
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Last Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="Email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="password" placeholder="Password">
+  </mat-form-field>
+</form>
+<div>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

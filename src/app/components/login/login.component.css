@@ -47,7 +47,7 @@
     font-size: 0.875rem;
     color: #ffffff;
     font-weight: bold;
-    background-color: #bcd8c1;
+    background-color: #63e27a;
     width: 100%;
     display: block;
     padding: 0.875rem 1rem;
@@ -62,7 +62,7 @@
   .login-picture {
     /* background-color: blue; */
     width: 100%;
-    height: 250px;
+    height: 200px;
     /* border-radius: 50%; */
     overflow: hidden;
     display: flex;

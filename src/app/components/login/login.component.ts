@@ -31,13 +31,30 @@ export class LoginComponent {
         console.log(res);
         if (res.email == this.mylogin.email && res.password == this.mylogin.password) {
           console.log("login successfully");
+          this.router.navigate(['/admin-dashboard']);
         } else {
-          alert("incorrect credentials");
+          console.log("incorrect credentials");
         }
       },
       error: (err) => {
         console.log(err);
-        alert("Error en el inicio de sesión. Por favor, inténtalo de nuevo.");
+        //alert("Error en el inicio de sesión. Por favor, inténtalo de nuevo.");
+      }
+    });
+
+    this.loginService.getDoctorbyEmail(this.mylogin) // Cambiar "login" al nombre adecuado de tu método en el servicio
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.email == this.mylogin.email && res.password == this.mylogin.password) {
+          console.log("login successfully");
+        } else {
+          console.log("incorrect credentials");
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        //alert("Error en el inicio de sesión. Por favor, inténtalo de nuevo.");
       }
     });
 
