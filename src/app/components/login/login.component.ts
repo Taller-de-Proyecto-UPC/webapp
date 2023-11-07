@@ -1,6 +1,6 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { Login } from 'src/app/interfaces/login';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -48,6 +48,8 @@ export class LoginComponent {
         console.log(res);
         if (res.email == this.mylogin.email && res.password == this.mylogin.password) {
           console.log("login successfully");
+          this.router.navigate(['/doctor-dashboard']);
+
         } else {
           console.log("incorrect credentials");
         }

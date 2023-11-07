@@ -1,9 +1,9 @@
 import { EnvironmentInjector, Injectable, LOCALE_ID } from '@angular/core';
 import {HttpClient,HttpErrorResponse,HttpHeaders} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Login } from '../interfaces/login';
+import { Login } from '../../interfaces/login';
 import { throwError,catchError} from 'rxjs';
-import { Doctor } from '../interfaces/doctor';
+import { Doctor } from '../../interfaces/doctor';
 
 const httpOptions = {
   headers: new HttpHeaders({

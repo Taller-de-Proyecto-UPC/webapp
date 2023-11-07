@@ -1,1 +1,34 @@
-<p>doctor-dashboard works!</p>
+<div class="citas-container">
+    <h2>Lista de Pacientes</h2>
+  
+    <table class="doctor-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th> </th>
+          <th> </th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patientData" class="doctor-item">
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.lastName }}</td>
+          <td>{{ patient.email }}</td>
+          <td>
+            <button mat-button (click)="openDetailDialog(patient)">Examenes</button>
+          </td>
+          <td>
+            <button mat-button (click)="openEditDialog(patient)">Editar</button>
+          </td>
+          <td>
+            <button mat-button (click)="deleteDoctor(patient)">Borrar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

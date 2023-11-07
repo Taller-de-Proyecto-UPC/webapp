@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/doctor-edit-dialog.component';
+import { PatientEditDialogComponent } from './components/patient-edit-dialog/patient-edit-dialog.component';
+import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/docto
     AdminDashboardComponent,
     DoctorDashboardComponent,
     LoginComponent,
-    DoctorEditDialogComponent
+    DoctorEditDialogComponent,
+    PatientEditDialogComponent,
+    PatientDetailComponent
   ],
   imports: [
     BrowserModule,

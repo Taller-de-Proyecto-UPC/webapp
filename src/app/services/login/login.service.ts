@@ -2,7 +2,7 @@
 import { EnvironmentInjector, Injectable, LOCALE_ID } from '@angular/core';
 import {HttpClient,HttpErrorResponse,HttpHeaders} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Login } from '../interfaces/login';
+import { Login } from '../../interfaces/login';
 import { environment } from 'src/environment/environment';
 
 const httpOptions = {
