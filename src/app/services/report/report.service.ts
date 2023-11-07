@@ -25,7 +25,8 @@ export class ReportService {
     return this.http.post(`${this.BASE_URL}/report/${reportId}/upload`, formData);
   }
 
-  getFile(reportId: number): Observable<Blob> {
+  getFile(reportId: any): Observable<Blob> {
+    console.log(`${this.BASE_URL}/report/download/${reportId}`)
     return this.http.get(`${this.BASE_URL}/report/download/${reportId}`, { responseType: 'blob' });
   }
 

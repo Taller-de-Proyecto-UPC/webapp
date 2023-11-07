@@ -12,8 +12,7 @@
         <p>Description: {{ report.description }}</p>
         <input type="file" (change)="onFileChange($event, report.id)">
         <button (click)="uploadFile(report.id)">Subir Archivo</button>
-        <img [src]="getReportImage(report.id) | async" width="512" height="512" alt="Report Image">
-
+        <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
       </div>
 
     </li>

@@ -13,7 +13,7 @@ export class PatientDetailComponent implements OnInit{
   patientId: string; // Declara una propiedad para almacenar el ID del paciente
   reports: Report[] = [];
   selectedFile: File | null = null;
-  imageBaseUrl = 'file:///C:/Users/stefa/Downloads/uploads/';
+  imageBaseUrl = 'assets/upload/';
 
 
   constructor(private route: ActivatedRoute, private reportService: ReportService) {
@@ -33,8 +33,8 @@ export class PatientDetailComponent implements OnInit{
 
   }
 
-  getReportImage(reportId: number): Observable<Blob> {
-    return this.reportService.getFile(reportId);
+  getReportImage(reportId: number): string {
+    return `${this.imageBaseUrl}${reportId}.png`;
   }
   
   
