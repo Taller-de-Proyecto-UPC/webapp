@@ -46,3 +46,21 @@
     max-height: 150px;
   }
   
+  /* En tu archivo CSS o en el archivo CSS del componente */
+
+.response-from-server {
+  margin-top: 20px; /* Espacio entre la sección anterior y la respuesta del servidor */
+  border: 1px solid #ccc; /* Borde alrededor de la sección */
+  padding: 10px; /* Espaciado interno */
+  background-color: #f5f5f5; /* Color de fondo */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.response-from-server h3 {
+  font-size: 18px; /* Tamaño de fuente para el título */
+  margin: 0; /* Elimina el margen superior por defecto */
+}
+
+.response-from-server p {
+  font-size: 16px; /* Tamaño de fuente para el contenido de la respuesta */
+}

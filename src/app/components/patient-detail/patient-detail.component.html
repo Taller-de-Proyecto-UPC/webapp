@@ -14,6 +14,11 @@
         <button (click)="uploadFile(report.id)">Subir Archivo</button>
         <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
       </div>
+      <div class="response-from-server">
+        <h3>Response from Server:</h3>
+        <p>{{ responseFromServer }}</p>
+      </div>
+      
 
     </li>
   </ul>

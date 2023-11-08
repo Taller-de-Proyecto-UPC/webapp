@@ -14,10 +14,11 @@ export class PatientDetailComponent implements OnInit{
   reports: Report[] = [];
   selectedFile: File | null = null;
   imageBaseUrl = 'assets/upload/';
-
+  responseFromServer: string;
 
   constructor(private route: ActivatedRoute, private reportService: ReportService) {
     this.patientId = '';
+    this.responseFromServer = '';
    }
 
   ngOnInit(): void {
@@ -34,7 +35,7 @@ export class PatientDetailComponent implements OnInit{
   }
 
   getReportImage(reportId: number): string {
-    return `${this.imageBaseUrl}${reportId}.png`;
+    return `${this.imageBaseUrl}${reportId}.jpg`;
   }
   
   
@@ -50,6 +51,13 @@ export class PatientDetailComponent implements OnInit{
     const file = event.target.files[0];
     // Puedes guardar el archivo en una propiedad del componente si es necesario.
     this.selectedFile = file;
+  }
+
+  makePrediction(reportId: any) {
+    this.reportService.makePrediction(reportId).subscribe((response: any) => {
+      // Manejar la respuesta de la predicción aquí
+      this.responseFromServer = response.result;
+    });
   }
   
   uploadFile(reportId: number) {
@@ -71,5 +79,6 @@ export class PatientDetailComponent implements OnInit{
       }
     );
   }
+
   
 }

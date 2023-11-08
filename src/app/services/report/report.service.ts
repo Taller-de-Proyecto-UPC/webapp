@@ -37,4 +37,8 @@ export class ReportService {
   getReportsByPatientId(patientId: any): Observable<Report[]> {
     return this.http.get<Report[]>(`${this.BASE_URL}/report/`+ patientId);
   }
+
+  makePrediction(reportId: any) {
+    return this.http.post(`http://127.0.0.1:5000/predict/${reportId}`, {});
+  }
 }
