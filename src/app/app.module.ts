@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/doctor-edit-dialog.component';
 import { PatientEditDialogComponent } from './components/patient-edit-dialog/patient-edit-dialog.component';
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
+import { DoctorCreateDialogComponent } from './components/doctor-create-dialog/doctor-create-dialog.component';
+import { PatientCreateDialogComponent } from './components/patient-create-dialog/patient-create-dialog.component';
+import { ReportCreateComponent } from './components/report-create/report-create.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
     LoginComponent,
     DoctorEditDialogComponent,
     PatientEditDialogComponent,
-    PatientDetailComponent
+    PatientDetailComponent,
+    DoctorCreateDialogComponent,
+    PatientCreateDialogComponent,
+    ReportCreateComponent
   ],
   imports: [
     BrowserModule,

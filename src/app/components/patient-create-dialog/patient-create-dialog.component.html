@@ -1,6 +1,5 @@
-<!-- doctor-edit-dialog.component.html -->
 <h1>Edit Doctor</h1>
-<form [formGroup]="doctorForm">
+<form [formGroup]="patientForm">
   <mat-form-field>
     <input matInput formControlName="name" placeholder="Name">
   </mat-form-field>
@@ -9,9 +8,6 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput formControlName="email" placeholder="Email">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="password" placeholder="Password">
   </mat-form-field>
 </form>
 <div>

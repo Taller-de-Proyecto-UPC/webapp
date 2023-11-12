@@ -1,27 +1,38 @@
 <div class="patient-details">
   <h2>Patient Details</h2>
 </div>
+<button mat-raised-button (click)="openCreateDialog(patientId)">Crear Reporte</button>
 
 <div class="report-list">
   <h3>Reports</h3>
-  <ul>
-    <li *ngFor="let report of reports">
-      <div class="report-info">
-        <p>ID: {{ report.id }}</p>
-        <p>Summary: {{ report.summary }}</p>
-        <p>Description: {{ report.description }}</p>
-        <input type="file" (change)="onFileChange($event, report.id)">
-        <button (click)="uploadFile(report.id)">Subir Archivo</button>
-        <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
-      </div>
-      <div class="response-from-server">
-        <h3>Response from Server:</h3>
-        <p>{{ responseFromServer }}</p>
-      </div>
-      
-
-    </li>
-  </ul>
+  <table class="excel-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Summary</th>
+        <th>Description</th>
+        <th>File</th>
+        <th>Image</th>
+        <th>Analysis</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reports">
+        <td>{{ report.id }}</td>
+        <td>{{ report.summary }}</td>
+        <td>{{ report.description }}</td>
+        <td>
+          <input type="file" (change)="onFileChange($event, report.id)">
+          <button (click)="uploadFile(report.id)">Upload File</button>
+        </td>
+        <td>
+          <p>{{ reportResponses[report.id] }}</p>
+          <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
+        </td>
+        <td>
+          <button (click)="makePrediction(report.id)">Analyze</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
-  

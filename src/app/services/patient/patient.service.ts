@@ -35,6 +35,18 @@ export class PatientService {
     );
   }
 
+  createPatient(id: any, patient: Patient){
+    this.http.post(`${this.BASE_URL}/patient/`+ id+"/create", patient).subscribe(
+      (response) => {
+        console.log('El paciente se creo satisfactoriamente:', response);
+        location.reload();
+      },
+      (error) => {
+        console.error('Error al crear el paciente', error);
+      }
+    );
+  }
+
   deletePatient(id: any){
     this.http.delete(`${this.BASE_URL}/patient/`+ id).subscribe(
       (response) => {

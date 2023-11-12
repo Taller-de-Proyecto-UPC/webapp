@@ -38,6 +38,18 @@ export class DoctorService {
     );
   }
 
+  createDoctor(id: any, doctor: Doctor){
+    this.http.post(`${this.BASE_URL}/doctor/`+ id+"/create", doctor).subscribe(
+      (response) => {
+        console.log('El doctor se creo satisfactoriamente:', response);
+        location.reload();
+      },
+      (error) => {
+        console.error('Error al crear el doctor', error);
+      }
+    );
+  }
+
   deleteDoctor(id: any){
     this.http.delete(`${this.BASE_URL}/doctor/`+ id).subscribe(
       (response) => {
