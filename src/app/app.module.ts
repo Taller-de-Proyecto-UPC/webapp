@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/doctor-edit-dialog.component';
 import { PatientEditDialogComponent } from './components/patient-edit-dialog/patient-edit-dialog.component';
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
     LoginComponent,
     DoctorEditDialogComponent,
     PatientEditDialogComponent,
-    PatientDetailComponent
+    PatientDetailComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,9 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule,
+
     
   ],
   providers: [],

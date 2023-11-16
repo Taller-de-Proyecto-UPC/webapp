@@ -20,6 +20,8 @@ const httpOptions = {
 
 export class LoginService {
     BASE_URL = 'http://localhost:8080/api/v1'
+    private userTypeKey = 'userType';
+
     constructor(private http: HttpClient) {}
 
     //GET patient by email
@@ -30,6 +32,19 @@ export class LoginService {
     //GET psychologist by email
     getDoctorbyEmail(login: Login):Observable<Login>{
       return this.http.post<Login>(`${this.BASE_URL}/doctor/login`, login)
+    }
+
+
+    saveUserType(userType: string): void {
+      localStorage.setItem(this.userTypeKey, userType);
+    }
+  
+    getUserType(): string | null {
+      return localStorage.getItem(this.userTypeKey);
+    }
+  
+    clearUserType(): void {
+      localStorage.removeItem(this.userTypeKey);
     }
 
 }
