@@ -6,6 +6,7 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 import { PatientEditDialogComponent } from '../patient-edit-dialog/patient-edit-dialog.component';
 import { Router } from '@angular/router';
 import { PatientCreateDialogComponent } from '../patient-create-dialog/patient-create-dialog.component';
+import { Patient } from 'src/app/interfaces/patient';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -13,7 +14,8 @@ import { PatientCreateDialogComponent } from '../patient-create-dialog/patient-c
   styleUrls: ['./doctor-dashboard.component.css']
 })
 export class DoctorDashboardComponent {
-  patientData: any;
+  patientData: Patient[] = [];
+  searchTerm: string = '';
 
   constructor(private http: HttpClient, private router: Router,private patientService: PatientService, private dialog: MatDialog
     ) { }
@@ -26,6 +28,12 @@ export class DoctorDashboardComponent {
     this.patientService.getAllPatients().subscribe((data: any) => {
       this.patientData = data;
     });
+  }
+
+  filteredPatients(): any[] {
+    return this.patientData.filter(patient =>
+      patient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   openEditDialog(patient: any): void {

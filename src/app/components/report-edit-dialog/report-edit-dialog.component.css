@@ -1,0 +1,8 @@
+/* report-edit-dialog.component.css */
+input.readonly {
+    border-color: #ccc; /* Cambia el color del borde para indicar que está en modo de solo lectura */
+    background-color: #555; /* Cambia el color de fondo para indicar que está en modo de solo lectura */
+    color: #fff; /* Cambia el color del texto para hacerlo más claro en modo de solo lectura */
+    cursor: not-allowed; /* Cambia el cursor para indicar que no se puede interactuar con el campo */
+  }
+  

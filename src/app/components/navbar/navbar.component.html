@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+    <span>NeuralScan</span>
+    <span class="spacer"></span>
+    <button mat-button *ngIf="isAdmin" routerLink="/doctor-dashboard">Doctor Dashboard</button>
+    <button mat-button *ngIf="isAdmin" routerLink="/admin-dashboard">Admin Dashboard</button>
+  </mat-toolbar>

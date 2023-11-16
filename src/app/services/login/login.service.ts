@@ -22,6 +22,20 @@ export class LoginService {
     BASE_URL = 'http://localhost:8080/api/v1'
     constructor(private http: HttpClient) {}
 
+
+    private userTypeKey = 'userType';
+
+    saveUserType(userType: string): void {
+      localStorage.setItem(this.userTypeKey, userType);
+    }
+  
+    getUserType(): string | null {
+      return localStorage.getItem(this.userTypeKey);
+    }
+  
+    clearUserType(): void {
+      localStorage.removeItem(this.userTypeKey);
+    }
     //GET patient by email
     getAdminbyEmail(login: Login):Observable<Login>{
       return this.http.post<Login>(`${this.BASE_URL}/administrator/login`, login)

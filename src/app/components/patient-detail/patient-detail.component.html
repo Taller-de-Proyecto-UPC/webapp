@@ -11,9 +11,10 @@
         <th>ID</th>
         <th>Summary</th>
         <th>Description</th>
-        <th>File</th>
+        <th>Comments</th>
         <th>Image</th>
-        <th>Analysis</th>        
+        <th>Analysis</th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
@@ -21,17 +22,29 @@
         <td>{{ report.id }}</td>
         <td>{{ report.summary }}</td>
         <td>{{ report.description }}</td>
+        <td>{{ report.comment }}</td>
         <td>
-          <input type="file" (change)="onFileChange($event, report.id)">
-          <button (click)="uploadFile(report.id)">Upload File</button>
+          <!-- Muestra el botón si la ruta de la imagen es igual a la ruta predeterminada -->
+          <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && !isUserAdmin">
+            <input type="file" (change)="onFileChange($event, report.id)">
+            <button (click)="uploadFile(report.id)">Upload File</button>
+          </ng-container>
+          <!-- Muestra solo si la ruta de la imagen no es igual a la ruta predeterminada -->
+          <ng-container *ngIf="getReportImage(report.id) !== getReportImageDefault()">
+            <p>{{ reportResponses[report.id] }}</p>
+            <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
+          </ng-container>
         </td>
-        <td>
-          <p>{{ reportResponses[report.id] }}</p>
-          <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
-        </td>
+        
+        
         <td>
           <button (click)="makePrediction(report.id)">Analyze</button>
         </td>
+        <td>
+          <button mat-button (click)="openEditDialog(report)">Editar</button>
+        </td>
+        
+        
       </tr>
     </tbody>
   </table>

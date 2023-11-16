@@ -14,7 +14,7 @@ export class PatientEditDialogComponent {
   patientForm: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<DoctorEditDialogComponent>,
+    private dialogRef: MatDialogRef<PatientEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private patientService: PatientService

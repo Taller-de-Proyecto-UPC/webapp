@@ -35,6 +35,18 @@ export class ReportService {
     );
   }
 
+  updateReport(id: any, report: Report){
+    this.http.put(`${this.BASE_URL}/report/`+ id, report).subscribe(
+      (response: any) => {
+        console.log('El Report se actualizo satisfactoriamente:', response);
+        location.reload();
+      },
+      (error: any) => {
+        console.error('Error al actualizar el Report', error);
+      }
+    );
+  }
+
   getFile(reportId: any): Observable<Blob> {
     console.log(`${this.BASE_URL}/report/download/${reportId}`)
     return this.http.get(`${this.BASE_URL}/report/download/${reportId}`, { responseType: 'blob' });

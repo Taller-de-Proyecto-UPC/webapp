@@ -5,6 +5,8 @@ import { Report } from 'src/app/interfaces/report';
 import { Observable } from 'rxjs';
 import { ReportCreateComponent } from '../report-create/report-create.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dialog.component';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -18,7 +20,7 @@ export class PatientDetailComponent implements OnInit{
   imageBaseUrl = 'assets/upload/';
   responseFromServer: string;
   reportResponses: { [reportId: number]: string } = {};
-  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog, private loginService: LoginService) {
     this.patientId = '';
     this.responseFromServer = '';
    }
@@ -36,7 +38,39 @@ export class PatientDetailComponent implements OnInit{
 
   }
 
+  get isUserAdmin(): boolean {
+    return this.loginService.getUserType() === 'admin';
+  }
+
   getReportImage(reportId: number): string {
+    return `${this.imageBaseUrl}${reportId}.jpg`;
+  }
+
+  getReportImageDefault(): string {
+    return `${this.imageBaseUrl}default.jpg`; // Cambia la ruta según tu estructura
+  }
+  
+  isSummaryEditable(summary: string): boolean {
+    console.log('Summary:', summary);
+    
+    console.log(summary === 'Tiene aneurisma' || summary === 'No tiene aneurisma');
+
+    return summary === 'Tiene aneurisma' || summary === 'No tiene aneurisma';
+  }
+
+  openEditDialog(report: any): void {
+    const dialogRef = this.dialog.open(ReportEditDialogComponent, {
+      width: '400px',
+      data: report, // Pasa el doctor seleccionado al diálogo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+  }
+
+
+  editReport(reportId: number): string {
     return `${this.imageBaseUrl}${reportId}.jpg`;
   }
   

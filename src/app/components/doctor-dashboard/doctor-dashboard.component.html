@@ -1,5 +1,7 @@
+<app-navbar></app-navbar>
 <div class="citas-container">
     <h2>Lista de Pacientes</h2>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
     <button mat-raised-button (click)="openCreateDialog()">Crear Paciente</button>
     <table class="doctor-table">
       <thead>
@@ -14,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of patientData" class="doctor-item">
+        <tr *ngFor="let patient of filteredPatients()" class="doctor-item">
           <td>{{ patient.id }}</td>
           <td>{{ patient.name }}</td>
           <td>{{ patient.lastName }}</td>
@@ -31,4 +33,4 @@
         </tr>
       </tbody>
     </table>
-  </div>
+</div>

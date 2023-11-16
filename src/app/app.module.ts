@@ -9,7 +9,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +18,9 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
 import { DoctorCreateDialogComponent } from './components/doctor-create-dialog/doctor-create-dialog.component';
 import { PatientCreateDialogComponent } from './components/patient-create-dialog/patient-create-dialog.component';
 import { ReportCreateComponent } from './components/report-create/report-create.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ReportEditDialogComponent } from './components/report-edit-dialog/report-edit-dialog.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { ReportCreateComponent } from './components/report-create/report-create.
     PatientDetailComponent,
     DoctorCreateDialogComponent,
     PatientCreateDialogComponent,
-    ReportCreateComponent
+    ReportCreateComponent,
+    NavbarComponent,
+    ReportEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ import { ReportCreateComponent } from './components/report-create/report-create.
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule
     
   ],
   providers: [],

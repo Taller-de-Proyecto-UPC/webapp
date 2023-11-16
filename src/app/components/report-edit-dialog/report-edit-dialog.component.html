@@ -1,0 +1,17 @@
+<!-- report-edit-dialog.component.html -->
+<h1>Edit Report</h1>
+<form [formGroup]="reportForm">
+  <mat-form-field>
+    <input matInput formControlName="summary" placeholder="Summary" [readonly]="!isEditable()" [class.readonly]="!isEditable()">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="description" placeholder="Description" [readonly]="!isEditable()" [class.readonly]="!isEditable()">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="comment" placeholder="Comments">
+  </mat-form-field>
+</form>
+<div>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>
