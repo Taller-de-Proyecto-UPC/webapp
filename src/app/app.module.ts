@@ -6,19 +6,17 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-
-import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/doctor-edit-dialog.component';
 import { PatientEditDialogComponent } from './components/patient-edit-dialog/patient-edit-dialog.component';
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,15 +33,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatToolbarModule,
-
-    
+    MatFormFieldModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

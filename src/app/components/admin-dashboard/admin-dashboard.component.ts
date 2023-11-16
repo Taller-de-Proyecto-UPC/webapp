@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DoctorEditDialogComponent } from '../doctor-edit-dialog/doctor-edit-dialog.component';
+import { DoctorCreateDialogComponent } from '../doctor-create-dialog/doctor-create-dialog.component';
 
 
 
@@ -38,6 +39,19 @@ export class AdminDashboardComponent {
 
     
   }
+
+  openCreateDialog(): void {
+    const newDoctor = { id: null, name: '', lastName: '', email: '', password: '' };
+    const dialogRef = this.dialog.open(DoctorCreateDialogComponent, {
+      width: '400px',
+      data: newDoctor, // Pasa el objeto del nuevo doctor al diálogo
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Manejar los datos del nuevo doctor si es necesario
+    });
+  }
+  
   
   sanitizePassword(password: string): string {
     return '*'.repeat(password.length);

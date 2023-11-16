@@ -5,6 +5,7 @@ import { DoctorEditDialogComponent } from '../doctor-edit-dialog/doctor-edit-dia
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PatientEditDialogComponent } from '../patient-edit-dialog/patient-edit-dialog.component';
 import { Router } from '@angular/router';
+import { PatientCreateDialogComponent } from '../patient-create-dialog/patient-create-dialog.component';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -36,6 +37,18 @@ export class DoctorDashboardComponent {
     dialogRef.afterClosed().subscribe(result => {
     });
 
+  }
+
+  openCreateDialog(): void {
+    const newPatient = { id: null, name: '', lastName: '', email: ''};
+    const dialogRef = this.dialog.open(PatientCreateDialogComponent, {
+      width: '400px',
+      data: newPatient, // Pasa el objeto del nuevo doctor al diálogo
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Manejar los datos del nuevo doctor si es necesario
+    });
   }
 
   openDetailDialog(patient: any) {

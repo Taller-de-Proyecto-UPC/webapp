@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ReportService } from 'src/app/services/report/report.service';
 import { Report } from 'src/app/interfaces/report';
 import { Observable } from 'rxjs';
+import { ReportCreateComponent } from '../report-create/report-create.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patient-detail',
@@ -15,8 +17,8 @@ export class PatientDetailComponent implements OnInit{
   selectedFile: File | null = null;
   imageBaseUrl = 'assets/upload/';
   responseFromServer: string;
-
-  constructor(private route: ActivatedRoute, private reportService: ReportService) {
+  reportResponses: { [reportId: number]: string } = {};
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog) {
     this.patientId = '';
     this.responseFromServer = '';
    }
@@ -53,13 +55,24 @@ export class PatientDetailComponent implements OnInit{
     this.selectedFile = file;
   }
 
-  makePrediction(reportId: any) {
+  makePrediction(reportId: number) {
     this.reportService.makePrediction(reportId).subscribe((response: any) => {
-      // Manejar la respuesta de la predicción aquí
-      this.responseFromServer = response.result;
+      // Asigna la respuesta al informe correspondiente
+      this.reportResponses[reportId] = response.result;
     });
   }
+  openCreateDialog(patientId: string): void {
+    const newReport = { id: patientId, summary: '', description: ''};
+    const dialogRef = this.dialog.open(ReportCreateComponent, {
+      width: '400px',
+      data: newReport, // Pasa el objeto del nuevo doctor al diálogo
+    });
   
+    dialogRef.afterClosed().subscribe(result => {
+      // Manejar los datos del nuevo doctor si es necesario
+    });
+  }
+
   uploadFile(reportId: number) {
     if (!this.selectedFile) {
       console.error('No se ha seleccionado un archivo.');

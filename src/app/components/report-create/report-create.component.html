@@ -1,0 +1,13 @@
+<h1>Edit Doctor</h1>
+<form [formGroup]="reportForm">
+  <mat-form-field>
+    <input matInput formControlName="summary" placeholder="Summary">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="description" placeholder="Description">
+  </mat-form-field>
+</form>
+<div>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

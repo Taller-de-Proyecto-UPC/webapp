@@ -15,14 +15,24 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReportService {
-
-
   BASE_URL = 'http://localhost:8080/api/v1'
   constructor(private http: HttpClient) {}
 
   uploadFile(reportId: number, formData: FormData){
     // Aquí se realiza la solicitud POST para cargar el archivo al informe específico
     return this.http.post(`${this.BASE_URL}/report/${reportId}/upload`, formData);
+  }
+
+  createReport(id: any, report: Report){
+    this.http.post(`${this.BASE_URL}/report/`+ id+"/create", report).subscribe(
+      (response) => {
+        console.log('El reporte se creo satisfactoriamente:', response);
+        location.reload();
+      },
+      (error) => {
+        console.error('Error al crear el reporte', error);
+      }
+    );
   }
 
   getFile(reportId: any): Observable<Blob> {
