@@ -10,6 +10,37 @@
     padding: 0;
     text-align: center;
   }
+
+  .login {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .user-type {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .login-as-label {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  
+  .user-type label {
+    margin-right: 10px;
+  }
+  
+  .divider {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  /* Puedes ajustar los estilos según tus preferencias visuales */
+  
   p {
     margin: 0;
     padding: 0;

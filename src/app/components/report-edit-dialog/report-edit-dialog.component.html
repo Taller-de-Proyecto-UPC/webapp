@@ -2,10 +2,13 @@
 <h1>Edit Report</h1>
 <form [formGroup]="reportForm">
   <mat-form-field>
-    <input matInput formControlName="summary" placeholder="Summary" [readonly]="!isEditable()" [class.readonly]="!isEditable()">
+    <input matInput formControlName="summary" placeholder="Summary">
+    <mat-error *ngIf="reportForm?.get('summary')?.hasError('required') && reportForm?.get('summary')?.touched">Summary is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
-    <input matInput formControlName="description" placeholder="Description" [readonly]="!isEditable()" [class.readonly]="!isEditable()">
+    <input matInput formControlName="description" placeholder="Description">
+    <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">Description is required</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput formControlName="comment" placeholder="Comments">

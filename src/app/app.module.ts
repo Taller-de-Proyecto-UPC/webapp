@@ -21,6 +21,8 @@ import { ReportCreateComponent } from './components/report-create/report-create.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReportEditDialogComponent } from './components/report-edit-dialog/report-edit-dialog.component';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ReportEditDialogComponent } from './components/report-edit-dialog/repor
     PatientCreateDialogComponent,
     ReportCreateComponent,
     NavbarComponent,
-    ReportEditDialogComponent
+    ReportEditDialogComponent,
+    MessageDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

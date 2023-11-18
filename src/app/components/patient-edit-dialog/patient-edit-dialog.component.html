@@ -3,12 +3,18 @@
 <form [formGroup]="patientForm">
   <mat-form-field>
     <input matInput formControlName="name" placeholder="Name">
+    <mat-error *ngIf="patientForm?.get('name')?.hasError('required') && patientForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="lastName" placeholder="Last Name">
+    <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required') && patientForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="email" placeholder="Email">
+    <mat-error *ngIf="patientForm?.get('email')?.hasError('required') && patientForm?.get('email')?.touched">Email is required</mat-error>
+    <mat-error *ngIf="patientForm?.get('email')?.hasError('pattern') && patientForm?.get('email')?.touched">Invalid email address</mat-error>
   </mat-form-field>
 </form>
 <div>

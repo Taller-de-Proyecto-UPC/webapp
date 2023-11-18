@@ -7,6 +7,7 @@ import { PatientEditDialogComponent } from '../patient-edit-dialog/patient-edit-
 import { Router } from '@angular/router';
 import { PatientCreateDialogComponent } from '../patient-create-dialog/patient-create-dialog.component';
 import { Patient } from 'src/app/interfaces/patient';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -70,6 +71,21 @@ export class DoctorDashboardComponent {
 
   sanitizePassword(password: string): string {
     return '*'.repeat(password.length);
+  }
+
+  
+  confirmDeletePatient(patient: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: { message: '¿Estás seguro de que quieres borrar este paciente?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Si el usuario hizo clic en "Sí", borra el doctor
+        this.patientService.deletePatient(patient.id)
+      }
+    });
   }
 
 

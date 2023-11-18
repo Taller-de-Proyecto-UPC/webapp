@@ -1,19 +1,27 @@
-<!-- doctor-edit-dialog.component.html -->
 <h1>Edit Doctor</h1>
 <form [formGroup]="doctorForm">
   <mat-form-field>
     <input matInput formControlName="name" placeholder="Name">
+    <mat-error *ngIf="doctorForm?.get('name')?.hasError('required') && doctorForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="lastName" placeholder="Last Name">
+    <mat-error *ngIf="doctorForm?.get('lastName')?.hasError('required') && doctorForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="email" placeholder="Email">
+    <mat-error *ngIf="doctorForm?.get('email')?.hasError('required') && doctorForm?.get('email')?.touched">Email is required</mat-error>
+    <mat-error *ngIf="doctorForm?.get('email')?.hasError('pattern') && doctorForm?.get('email')?.touched">Invalid email address</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="password" placeholder="Password">
+    <mat-error *ngIf="doctorForm?.get('password')?.hasError('required') && doctorForm?.get('password')?.touched">Password is required</mat-error>
   </mat-form-field>
 </form>
+
 <div>
   <button mat-button (click)="save()">Save</button>
   <button mat-button (click)="closeDialog()">Cancel</button>

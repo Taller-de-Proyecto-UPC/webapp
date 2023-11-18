@@ -4,6 +4,8 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DoctorEditDialogComponent } from '../doctor-edit-dialog/doctor-edit-dialog.component';
 import { DoctorCreateDialogComponent } from '../doctor-create-dialog/doctor-create-dialog.component';
+import { Doctor } from 'src/app/interfaces/doctor';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -13,7 +15,8 @@ import { DoctorCreateDialogComponent } from '../doctor-create-dialog/doctor-crea
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent {
-  doctorData: any;
+  doctorData: Doctor[] = [];
+  searchTerm: string = '';
 
   constructor(private http: HttpClient,     private doctorService: DoctorService, private dialog: MatDialog
     ) { }
@@ -22,10 +25,18 @@ export class AdminDashboardComponent {
     this.obtenerListaDeDoctores();
   }
 
+
+
   obtenerListaDeDoctores() {
     this.doctorService.getAllDoctors().subscribe((data: any) => {
       this.doctorData = data;
     });
+  }
+
+  filteredDoctors(): any[] {
+    return this.doctorData.filter((doctor: { name: string; }) =>
+      doctor.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   openEditDialog(doctor: any): void {
@@ -55,6 +66,20 @@ export class AdminDashboardComponent {
   
   sanitizePassword(password: string): string {
     return '*'.repeat(password.length);
+  }
+
+  confirmDeleteDoctor(doctor: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: { message: '¿Estás seguro de que quieres borrar este doctor?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Si el usuario hizo clic en "Sí", borra el doctor
+        this.doctorService.deleteDoctor(doctor.id)
+      }
+    });
   }
 
 

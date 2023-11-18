@@ -24,18 +24,15 @@
         <td>{{ report.description }}</td>
         <td>{{ report.comment }}</td>
         <td>
-          <!-- Muestra el botón si la ruta de la imagen es igual a la ruta predeterminada -->
-          <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && !isUserAdmin">
-            <input type="file" (change)="onFileChange($event, report.id)">
-            <button (click)="uploadFile(report.id)">Upload File</button>
-          </ng-container>
-          <!-- Muestra solo si la ruta de la imagen no es igual a la ruta predeterminada -->
-          <ng-container *ngIf="getReportImage(report.id) !== getReportImageDefault()">
+          <ng-container>
             <p>{{ reportResponses[report.id] }}</p>
             <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
+            <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && !isUserAdmin">
+              <input type="file" (change)="onFileChange($event, report.id)">
+              <button (click)="uploadFile(report.id)">Upload File</button>
+            </ng-container>
           </ng-container>
         </td>
-        
         
         <td>
           <button (click)="makePrediction(report.id)">Analyze</button>
@@ -43,8 +40,6 @@
         <td>
           <button mat-button (click)="openEditDialog(report)">Editar</button>
         </td>
-        
-        
       </tr>
     </tbody>
   </table>

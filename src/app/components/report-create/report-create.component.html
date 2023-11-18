@@ -1,12 +1,16 @@
-<h1>Edit Doctor</h1>
+<h1>Create Report</h1>
 <form [formGroup]="reportForm">
   <mat-form-field>
     <input matInput formControlName="summary" placeholder="Summary">
+    <mat-error *ngIf="reportForm?.get('summary')?.hasError('required') && reportForm?.get('summary')?.touched">Summary is required</mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="description" placeholder="Description">
+    <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">Description is required</mat-error>
   </mat-form-field>
 </form>
+
 <div>
   <button mat-button (click)="save()">Save</button>
   <button mat-button (click)="closeDialog()">Cancel</button>

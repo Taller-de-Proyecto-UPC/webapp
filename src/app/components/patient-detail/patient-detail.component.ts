@@ -42,6 +42,22 @@ export class PatientDetailComponent implements OnInit{
     return this.loginService.getUserType() === 'admin';
   }
 
+  isImageBroken(reportId: number): boolean {
+    return this.reportResponses[reportId] === 'ImageLoadError';
+  }
+  
+  handleImageLoad(event: Event, reportId: number): void {
+    // La imagen se cargó correctamente
+    console.log('Imagen cargada correctamente:', reportId);
+  }
+  
+  handleImageError(event: Event, reportId: number): void {
+    // La carga de la imagen falló
+    console.log('Error al cargar la imagen:', reportId);
+    this.reportResponses[reportId] = 'ImageLoadError';
+  }
+  
+
   getReportImage(reportId: number): string {
     return `${this.imageBaseUrl}${reportId}.jpg`;
   }
@@ -119,12 +135,14 @@ export class PatientDetailComponent implements OnInit{
     this.reportService.uploadFile(reportId, formData).subscribe(
       (response) => {
         console.log('Archivo subido con éxito', response);
+        location.reload();
         // Realiza acciones adicionales si es necesario
       },
       (error) => {
         console.error('Error al cargar el archivo', error);
       }
     );
+    
   }
 
   

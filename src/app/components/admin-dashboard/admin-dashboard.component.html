@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div class="citas-container">
   <h2>Lista de Doctores</h2>
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
   <button mat-raised-button (click)="openCreateDialog()">Crear Doctor</button>
   <table class="doctor-table">
     <thead>
@@ -15,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let doctor of doctorData" class="doctor-item">
+      <tr *ngFor="let doctor of filteredDoctors()" class="doctor-item">
         <td>{{ doctor.id }}</td>
         <td>{{ doctor.name }}</td>
         <td>{{ doctor.lastName }}</td>
@@ -25,7 +26,7 @@
           <button mat-button (click)="openEditDialog(doctor)">Editar</button>
         </td>
         <td>
-          <button mat-button (click)="deleteDoctor(doctor)">Borrar</button>
+          <button mat-button (click)="confirmDeleteDoctor(doctor)">Borrar</button>
         </td>
       </tr>
     </tbody>
