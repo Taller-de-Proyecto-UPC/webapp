@@ -44,7 +44,6 @@ export class PatientCreateDialogComponent {
       this.isNotEmpty(this.patientForm.value.name) &&
       this.isNotEmpty(this.patientForm.value.lastName) &&
       this.isNotEmpty(this.patientForm.value.email) &&
-      this.isNotEmpty(this.patientForm.value.password) &&
       this.isValidEmail(this.patientForm.value.email)
     ) {
     // Aquí puedes enviar los datos actualizados al servidor o realizar la edición

@@ -7,9 +7,13 @@
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="description" placeholder="Description" maxlength="50">
-    <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">Description is required</mat-error>
+    <input matInput formControlName="description" class="input.readonly" placeholder="Description" maxlength="50"
+      [readonly]="!isEditable()">
+    <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">
+      Description is required
+    </mat-error>
   </mat-form-field>
+  
   <mat-form-field>
     <input matInput formControlName="comment" placeholder="Comments">
   </mat-form-field>

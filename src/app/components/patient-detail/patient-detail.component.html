@@ -14,7 +14,7 @@
         <th>Comments</th>
         <th>Image</th>
         <th>Analysis</th>
-        <th> </th>
+        <th *ngIf="!isUserAdmin"> </th>
       </tr>
     </thead>
     <tbody>
@@ -35,10 +35,13 @@
         </td>
         
         <td>
-          <button (click)="makePrediction(report.id)">Analyze</button>
+          <button (click)="makePrediction(report)">Analyze</button>
         </td>
-        <td>
-          <button mat-button (click)="openEditDialog(report)">Editar</button>
+        <td *ngIf="!isUserAdmin">
+
+          <ng-container>
+            <button mat-button (click)="openEditDialog(report)">Editar</button>
+          </ng-container>
         </td>
       </tr>
     </tbody>
