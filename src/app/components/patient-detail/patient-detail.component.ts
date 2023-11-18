@@ -41,29 +41,9 @@ export class PatientDetailComponent implements OnInit{
   get isUserAdmin(): boolean {
     return this.loginService.getUserType() === 'admin';
   }
-
-  isImageBroken(reportId: number): boolean {
-    return this.reportResponses[reportId] === 'ImageLoadError';
-  }
   
-  handleImageLoad(event: Event, reportId: number): void {
-    // La imagen se cargó correctamente
-    console.log('Imagen cargada correctamente:', reportId);
-  }
-  
-  handleImageError(event: Event, reportId: number): void {
-    // La carga de la imagen falló
-    console.log('Error al cargar la imagen:', reportId);
-    this.reportResponses[reportId] = 'ImageLoadError';
-  }
-  
-
   getReportImage(reportId: number): string {
     return `${this.imageBaseUrl}${reportId}.jpg`;
-  }
-
-  getReportImageDefault(): string {
-    return `${this.imageBaseUrl}default.jpg`; // Cambia la ruta según tu estructura
   }
   
   isSummaryEditable(summary: string): boolean {
@@ -90,7 +70,6 @@ export class PatientDetailComponent implements OnInit{
     return `${this.imageBaseUrl}${reportId}.jpg`;
   }
   
-  
 
   loadReports(patientId: string) {
     this.reportService.getReportsByPatientId(patientId).subscribe(reports => {
@@ -105,10 +84,12 @@ export class PatientDetailComponent implements OnInit{
     this.selectedFile = file;
   }
 
-  makePrediction(reportId: number) {
-    this.reportService.makePrediction(reportId).subscribe((response: any) => {
+  makePrediction(report: any) {
+    this.reportService.makePrediction(report.id).subscribe((response: any) => {
       // Asigna la respuesta al informe correspondiente
-      this.reportResponses[reportId] = response.result;
+      report.description = this.reportResponses[report.id] = response.result;
+      this.reportService.updateReport(report.id,report);
+      location.reload();
     });
   }
   openCreateDialog(patientId: string): void {

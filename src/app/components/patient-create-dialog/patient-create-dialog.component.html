@@ -1,12 +1,12 @@
 <h1>Edit Patient</h1>
 <form [formGroup]="patientForm">
   <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name">
+    <input matInput formControlName="name" placeholder="Name" maxlength="50">
     <mat-error *ngIf="patientForm?.get('name')?.hasError('required') && patientForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="lastName" placeholder="Last Name">
+    <input matInput formControlName="lastName" placeholder="Last Name" maxlength="50">
     <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required') && patientForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
   

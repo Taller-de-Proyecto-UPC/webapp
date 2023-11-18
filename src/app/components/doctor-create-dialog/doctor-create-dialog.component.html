@@ -1,12 +1,12 @@
 <h1>Edit Doctor</h1>
 <form [formGroup]="doctorForm">
   <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name">
+    <input matInput formControlName="name" placeholder="Name" maxlength="50">
     <mat-error *ngIf="doctorForm?.get('name')?.hasError('required') && doctorForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="lastName" placeholder="Last Name">
+    <input matInput formControlName="lastName" placeholder="Last Name" maxlength="50">
     <mat-error *ngIf="doctorForm?.get('lastName')?.hasError('required') && doctorForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
   
@@ -17,7 +17,7 @@
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="password" placeholder="Password">
+    <input matInput formControlName="password" placeholder="Password" maxlength="50">
     <mat-error *ngIf="doctorForm?.get('password')?.hasError('required') && doctorForm?.get('password')?.touched">Password is required</mat-error>
   </mat-form-field>
 </form>
