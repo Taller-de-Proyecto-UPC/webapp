@@ -12,6 +12,7 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class PatientEditDialogComponent {
   patientForm: FormGroup;
+  hasError: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<PatientEditDialogComponent>,
@@ -21,10 +22,64 @@ export class PatientEditDialogComponent {
   ) {
     this.patientForm = this.fb.group({
       id: [data?.id || null],
-      name: [data?.name || null, Validators.required],
-      lastName: [data?.lastName || null, Validators.required],
+      name: [data?.name || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      lastName: [data?.lastName || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       email: [data?.email || null, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
     });
+  }
+
+  onKeyPressName(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    const pattern = /^[a-zA-Z ]*$/;
+    const nameControl = this.patientForm.get('name');
+  
+    if (nameControl) {
+      if (!pattern.test(inputChar)) {
+        // Si el caracter no es una letra o espacio, establece el estado del formulario en inválido
+        nameControl.setErrors({ 'pattern': true });
+        event.preventDefault();
+      } else {
+        // Si es una letra o espacio, resetea el estado del formulario
+        nameControl.setErrors(null);
+      }
+    }
+  }
+
+  onKeyPressLastname(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    const pattern = /^[a-zA-Z ]*$/;
+    const nameControl = this.patientForm.get('lastName');
+  
+    if (nameControl) {
+      if (!pattern.test(inputChar)) {
+        // Si el caracter no es una letra o espacio, establece el estado del formulario en inválido
+        nameControl.setErrors({ 'pattern': true });
+        event.preventDefault();
+      } else {
+        // Si es una letra o espacio, resetea el estado del formulario
+        nameControl.setErrors(null);
+      }
+    }
+  }
+  
+  onInputName(): void {
+    const nameControl = this.patientForm.get('name');
+  
+    if (nameControl) {
+      const inputValue = nameControl.value as string;
+  
+      if (!/^[a-zA-Z ]*$/.test(inputValue)) {
+        // No necesitas establecer manualmente los errores, Angular lo hará automáticamente
+      }
+    }
+  }
+  
+
+  onInputLastname(): void {
+    const nameControl = this.patientForm.get('name');
+    if (nameControl) {
+      nameControl.setErrors(null);
+    }  
   }
 
   isNotEmpty(value: string | null): boolean {

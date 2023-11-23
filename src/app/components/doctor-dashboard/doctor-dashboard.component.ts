@@ -17,12 +17,38 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 export class DoctorDashboardComponent {
   patientData: Patient[] = [];
   searchTerm: string = '';
+  hasError: boolean = false;
 
   constructor(private http: HttpClient, private router: Router,private patientService: PatientService, private dialog: MatDialog
     ) { }
 
   ngOnInit() {
     this.obtenerListaDePacientes();
+  }
+
+  onInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+    const pattern = /^[a-zA-Z ]*$/;
+
+    if (!pattern.test(inputValue)) {
+      // Si el valor no coincide con la expresión regular, establece el valor sin el último carácter
+      this.searchTerm = inputValue.slice(0, -1);
+    }
+  }
+
+  onKeyPress(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    const pattern = /^[a-zA-Z ]*$/;
+
+    if (!pattern.test(inputChar)) {
+      // Si el caracter no es una letra o espacio, muestra el error
+      this.hasError = true;
+      event.preventDefault();
+    } else {
+      // Si es una letra o espacio, resetea el error
+      this.hasError = false;
+    }
   }
 
   obtenerListaDePacientes() {

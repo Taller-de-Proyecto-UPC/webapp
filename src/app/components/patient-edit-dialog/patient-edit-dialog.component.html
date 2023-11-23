@@ -2,12 +2,14 @@
 <h1>Edit Patient</h1>
 <form [formGroup]="patientForm">
   <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name" maxlength="50">
+    <input matInput formControlName="name" placeholder="Name" maxlength="50" (input)="onInputName()" (keydown)="onKeyPressName($event)">
+    <mat-error *ngIf="patientForm.get('name')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
     <mat-error *ngIf="patientForm?.get('name')?.hasError('required') && patientForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="lastName" placeholder="Last Name" maxlength="50">
+    <input matInput formControlName="lastName" placeholder="Last Name" maxlength="50" (input)="onInputLastname()" (keydown)="onKeyPressLastname($event)">
+    <mat-error *ngIf="patientForm.get('lastName')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
     <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required') && patientForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
   

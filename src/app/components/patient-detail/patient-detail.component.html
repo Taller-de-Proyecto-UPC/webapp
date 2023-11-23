@@ -1,6 +1,7 @@
 <div class="patient-details">
   <h2>Patient Details</h2>
 </div>
+<input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por summary">
 <button mat-raised-button (click)="openCreateDialog(patientId)">Crear Reporte</button>
 
 <div class="report-list">
@@ -18,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let report of reports">
+      <tr *ngFor="let report of filteredReports()">
         <td>{{ report.id }}</td>
         <td>{{ report.summary }}</td>
         <td>{{ report.description }}</td>

@@ -19,6 +19,8 @@ export class PatientDetailComponent implements OnInit{
   selectedFile: File | null = null;
   imageBaseUrl = 'assets/upload/';
   responseFromServer: string;
+  searchTerm: string = '';
+
   reportResponses: { [reportId: number]: string } = {};
   constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog, private loginService: LoginService) {
     this.patientId = '';
@@ -36,6 +38,12 @@ export class PatientDetailComponent implements OnInit{
       console.log(this.patientId)
     });
 
+  }
+  
+  filteredReports(): any[] {
+    return this.reports.filter((report: { summary: string; }) =>
+    report.summary.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   get isUserAdmin(): boolean {

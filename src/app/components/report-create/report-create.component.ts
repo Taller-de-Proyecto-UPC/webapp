@@ -29,12 +29,6 @@ export class ReportCreateComponent {
     return value !== null && value !== undefined && value.trim() !== '';
   }
 
-  isValidEmail(email: string): boolean {
-    // Utilizamos una expresión regular simple para verificar la validez del correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
   save() {
     if (
       this.isNotEmpty(this.reportForm.value.summary) &&

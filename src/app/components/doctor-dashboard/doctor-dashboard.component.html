@@ -1,7 +1,9 @@
 <app-navbar></app-navbar>
 <div class="citas-container">
     <h2>Lista de Pacientes</h2>
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" (keydown)="onKeyPress($event)" (input)="onInput($event)">
+    <div *ngIf="hasError" style="color: red;">No se permiten caracteres especiales o números</div>
+
     <button mat-raised-button (click)="openCreateDialog()">Crear Paciente</button>
     <table class="doctor-table">
       <thead>

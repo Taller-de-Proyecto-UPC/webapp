@@ -1,12 +1,14 @@
 <h1>Create Doctor</h1>
 <form [formGroup]="doctorForm">
   <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name" maxlength="50">
+    <input matInput formControlName="name"  (keydown)="onKeyPressName($event)" (input)="onInputName()" placeholder="Name" maxlength="50">
+    <mat-error *ngIf="doctorForm.get('name')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
     <mat-error *ngIf="doctorForm?.get('name')?.hasError('required') && doctorForm?.get('name')?.touched">Name is required</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="lastName" placeholder="Last Name" maxlength="50">
+    <input matInput formControlName="lastName" (keydown)="onKeyPressLastname($event)"(input)="onInputLastname()" placeholder="Last Name" maxlength="50">
+    <mat-error *ngIf="doctorForm.get('lastName')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
     <mat-error *ngIf="doctorForm?.get('lastName')?.hasError('required') && doctorForm?.get('lastName')?.touched">Last Name is required</mat-error>
   </mat-form-field>
   

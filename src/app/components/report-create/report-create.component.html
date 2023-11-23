@@ -1,12 +1,12 @@
 <h1>Create Report</h1>
 <form [formGroup]="reportForm">
   <mat-form-field>
-    <input matInput formControlName="summary" placeholder="Summary" maxlength="100">
+    <input matInput formControlName="summary" placeholder="Summary" maxlength="400">
     <mat-error *ngIf="reportForm?.get('summary')?.hasError('required') && reportForm?.get('summary')?.touched">Summary is required</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput formControlName="description" placeholder="Description" maxlength="50">
+    <input matInput formControlName="description" placeholder="Description" maxlength="400">
     <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">Description is required</mat-error>
   </mat-form-field>
 </form>
