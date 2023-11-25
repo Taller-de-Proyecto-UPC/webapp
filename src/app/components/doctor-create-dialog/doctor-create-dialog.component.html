@@ -49,6 +49,14 @@
     </mat-form-field> 
 
     <!-- Otros campos -->
+  
+    <mat-form-field>
+      <mat-label>CIP</mat-label>
+      <input matInput formControlName="cip" placeholder="CIP">
+      <mat-error *ngIf="doctorForm?.get('cip')?.hasError('required') && doctorForm?.get('cip')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <h2>Create User</h2>
 
     <mat-form-field>
       <mat-label>Username</mat-label>
@@ -60,12 +68,6 @@
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" placeholder="Password" maxlength="50">
       <mat-error *ngIf="doctorForm?.get('password')?.hasError('required') && doctorForm?.get('password')?.touched">Campo obligatorio</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>CIP</mat-label>
-      <input matInput formControlName="cip" placeholder="CIP">
-      <mat-error *ngIf="doctorForm?.get('cip')?.hasError('required') && doctorForm?.get('cip')?.touched">Campo obligatorio</mat-error>
     </mat-form-field>
 
   </form>

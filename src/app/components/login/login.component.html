@@ -1,5 +1,5 @@
 <div class="login">
-  <form (submit)="submitLogin()" class="custom-form" method="post">
+  <form #form="ngForm" (submit)="submitLogin()" class="custom-form" method="post">
     <h1>Neural Scan</h1>
     <div class="login-picture">
       <img src="assets/neuralscan.png" alt="image">
@@ -9,17 +9,20 @@
     <div>
       <input
         type="username"
+        maxlength="50"
         [(ngModel)]="mylogin.username"
         name="username"
         placeholder="Username"
-        required
-      />
+        pattern=".*@.*"
+        required        
+      />   
     </div>
 
 
     <div>
       <input
         type="password"
+        maxlength="20"
         [(ngModel)]="mylogin.password"
         name="password"
         placeholder="Password"
