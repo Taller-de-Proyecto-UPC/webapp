@@ -22,10 +22,29 @@ export class UserService {
 
 
   private userTypeKey = 'userType';
+  private id = '0';
+  private username = 'username';
 
   saveUserType(userType: string): void {
     localStorage.setItem(this.userTypeKey, userType);
   }
+
+  saveId(id: string): void {
+    localStorage.setItem(this.id, id);
+  }
+
+  getId(): string | null {
+    return localStorage.getItem(this.id);
+  }
+
+  saveUsername(username: string): void {
+    localStorage.setItem(this.username, username);
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem(this.username);
+  }
+
 
   getUserType(): string | null {
     return localStorage.getItem(this.userTypeKey);

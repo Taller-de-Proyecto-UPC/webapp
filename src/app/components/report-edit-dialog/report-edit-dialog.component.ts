@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { DoctorEditDialogComponent } from '../doctor-edit-dialog/doctor-edit-dialog.component';
 import { ReportService } from 'src/app/services/report/report.service';
+import { Report } from 'src/app/interfaces/report';
 
 @Component({
   selector: 'app-report-edit-dialog',
@@ -23,7 +24,7 @@ export class ReportEditDialogComponent {
       id: [data?.id || null, Validators.required],
       summary: [data?.summary || null, Validators.required],
       description: [data?.description || null, Validators.required],
-      comment: data.comment,
+      comment: [data?.comment || null, Validators.required],
     });
   }
 
@@ -41,10 +42,19 @@ export class ReportEditDialogComponent {
       this.isNotEmpty(this.reportForm.value.summary) &&
       this.isNotEmpty(this.reportForm.value.description)
     ) {
-    const updatedReportData = this.reportForm.value;
+      const newReportData: Report = {
+        id: this.data?.id,
+        summary: this.reportForm.value.summary,
+        description: this.reportForm.value.description,
+        comment: this.reportForm.value.comment,  // Agrega el campo 'comment'
+        image: {
+          path: '',
+          added: '' // Ajusta según la estructura de tu formulario
+        }
+      };
     // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
-    this.reportService.updateReport(updatedReportData.id,updatedReportData);
-    this.dialogRef.close(updatedReportData);
+    this.reportService.updateReport(newReportData.id,newReportData);
+    this.dialogRef.close(newReportData);
     }
 }
 

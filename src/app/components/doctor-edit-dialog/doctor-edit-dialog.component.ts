@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { Doctor } from 'src/app/interfaces/doctor';
 
 @Component({
   selector: 'app-doctor-edit-dialog',
@@ -17,17 +18,27 @@ export class DoctorEditDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<DoctorEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Doctor,
     private fb: FormBuilder,
     private doctorService: DoctorService
   ) {
+    console.log(data.doctorId)
+    
+
     this.doctorForm = this.fb.group({
-      id: [data?.id || null],
+      id: [data?.doctorId || null],
       name: [data?.name || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       lastName: [data?.lastName || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       email: [data?.email || null, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
-      password: [data?.password || null, Validators.required]
-    });
+      phone: [data?.phone || null, Validators.maxLength(15)], // Ajusta según tus necesidades
+      address: [data?.address || null, Validators.required],
+      birthday: [data?.birthday || null, Validators.required],
+      specialty: [data?.specialty || null, Validators.required],
+      password: [data?.user?.password || null, Validators.required],
+      username: [data?.user?.username || null, Validators.required], 
+      role:[data?.user?.role || null],     
+      cip: [data?.cip || null]
+    });    
   }
 
   
@@ -106,15 +117,36 @@ export class DoctorEditDialogComponent {
       this.isNotEmpty(this.doctorForm.value.password) &&
       this.isValidEmail(this.doctorForm.value.email)
     ) {
-      const updatedDoctorData = this.doctorForm.value;
+      // Crea un objeto con la estructura original del Doctor
+      const updatedDoctorData: Doctor = {
+        doctorId: this.doctorForm.value.id,
+        name: this.doctorForm.value.name,
+        lastName: this.doctorForm.value.lastName,
+        email: this.doctorForm.value.email,
+        phone: this.doctorForm.value.phone,
+        address: this.doctorForm.value.address,
+        birthday: this.doctorForm.value.birthday,
+        specialty: this.doctorForm.value.specialty,
+        user: {
+          username: this.doctorForm.value.username,
+          password: this.doctorForm.value.password,
+          role: this.doctorForm.value.role, // Ajusta según tus necesidades
+        },
+        cip: this.doctorForm.value.cip,
+      };
+  
+      // Imprime los datos actualizados (opcional)
+      console.log(updatedDoctorData);
+  
       // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
-      this.doctorService.updateDoctor(updatedDoctorData.id, updatedDoctorData);
+      this.doctorService.updateDoctor(updatedDoctorData.doctorId, updatedDoctorData);
       this.dialogRef.close(updatedDoctorData);
     } else {
       // Muestra un mensaje de error si algún campo está vacío
-      //alert('Por favor, completa todos los campos.');
+      // alert('Por favor, completa todos los campos.');
     }
   }
+  
 
   closeDialog() {
     this.dialogRef.close();

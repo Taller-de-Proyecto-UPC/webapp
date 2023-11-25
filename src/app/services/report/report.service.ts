@@ -23,8 +23,10 @@ export class ReportService {
     return this.http.post(`${this.BASE_URL}/report/${reportId}/upload`, formData);
   }
 
-  createReport(id: any, report: Report){
-    this.http.post(`${this.BASE_URL}/report/`+ id+"/create", report).subscribe(
+  createReport(doctorId: any, patientId: any, report: Report){
+    console.log(`${this.BASE_URL}/report/`+"doctor/"+ doctorId+"/patient/"+patientId+"/create");
+
+    this.http.post(`${this.BASE_URL}/report/`+"doctor/"+ doctorId+"/patient/"+patientId+"/create", report).subscribe(
       (response) => {
         console.log('El reporte se creo satisfactoriamente:', response);
         location.reload();
@@ -57,7 +59,7 @@ export class ReportService {
   }
 
   getReportsByPatientId(patientId: any): Observable<Report[]> {
-    return this.http.get<Report[]>(`${this.BASE_URL}/report/`+ patientId);
+    return this.http.get<Report[]>(`${this.BASE_URL}/report/`+ "patient/"+patientId);
   }
 
   makePrediction(reportId: any) {

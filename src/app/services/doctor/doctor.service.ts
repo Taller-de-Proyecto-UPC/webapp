@@ -22,6 +22,16 @@ export class DoctorService {
   BASE_URL = 'http://localhost:8080/api/v1'
   constructor(private http: HttpClient) {}
 
+  private doctorId = 'doctorId';
+
+  saveDoctorId(doctorId: string): void {
+    localStorage.setItem(this.doctorId, doctorId);
+  }
+
+  getDoctorId(): string | null {
+    return localStorage.getItem(this.doctorId);
+  }
+
   getAllDoctors(){
     return this.http.get<Doctor>(`${this.BASE_URL}/doctor`)
   }
@@ -38,8 +48,8 @@ export class DoctorService {
     );
   }
 
-  createDoctor(id: any, doctor: Doctor){
-    this.http.post(`${this.BASE_URL}/doctor/`+ id+"/create", doctor).subscribe(
+  createDoctor(doctor: Doctor){
+    this.http.post(`${this.BASE_URL}/doctor/`+"create", doctor).subscribe(
       (response) => {
         console.log('El doctor se creo satisfactoriamente:', response);
         location.reload();
@@ -48,6 +58,9 @@ export class DoctorService {
         console.error('Error al crear el doctor', error);
       }
     );
+  }
+  getDoctorByUsername(username: any){
+    return this.http.get<Doctor>(`${this.BASE_URL}/doctor/username/`+username)
   }
 
   deleteDoctor(id: any){

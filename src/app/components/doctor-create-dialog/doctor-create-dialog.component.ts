@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Doctor } from 'src/app/interfaces/doctor';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 
 @Component({
@@ -14,16 +15,23 @@ export class DoctorCreateDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<DoctorCreateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Doctor,
     private fb: FormBuilder,
     private doctorService: DoctorService
   ) {
     this.doctorForm = this.fb.group({
-      id: [data?.id || null],
-      name: [data?.name || null, Validators.required, Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)],
-      lastName: [data?.lastName || null, Validators.required, Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)],
-      email: [(data?.email || null)!, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
-      password: [(data?.password || null)!, Validators.required]
+      id: [data?.doctorId || null],
+      name: [data?.name || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      lastName: [data?.lastName || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      email: [data?.email || null, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+      phone: [data?.phone || null, Validators.maxLength(15)], // Ajusta según tus necesidades
+      address: [data?.address || null, Validators.required],
+      birthday: [data?.birthday || null, Validators.required],
+      specialty: [data?.specialty || null, Validators.required],
+      password: [data?.user?.password || null, Validators.required],
+      username: [data?.user?.username || null, Validators.required], 
+      role:[data?.user?.role || null],     
+      cip: [data?.cip || null]
     });
     
   }
@@ -95,9 +103,24 @@ export class DoctorCreateDialogComponent {
       this.isNotEmpty(this.doctorForm.value.password) &&
       this.isValidEmail(this.doctorForm.value.email)
     ) {
-    const newDoctorData = this.doctorForm.value;
+      const newDoctorData: Doctor = {
+        doctorId: this.doctorForm.value.id,
+        name: this.doctorForm.value.name,
+        lastName: this.doctorForm.value.lastName,
+        email: this.doctorForm.value.email,
+        phone: this.doctorForm.value.phone,
+        address: this.doctorForm.value.address,
+        birthday: this.doctorForm.value.birthday,
+        specialty: this.doctorForm.value.specialty,
+        user: {
+          username: this.doctorForm.value.username,
+          password: this.doctorForm.value.password,
+          role: "doctor", // Ajusta según tus necesidades
+        },
+        cip: this.doctorForm.value.cip,
+      };
     // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
-    this.doctorService.createDoctor(1,newDoctorData);
+    this.doctorService.createDoctor(newDoctorData);
     this.dialogRef.close(newDoctorData);
     } else{
       

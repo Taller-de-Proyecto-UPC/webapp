@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,17 +8,17 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private loginService: LoginService) { }
+  constructor(private userService: UserService) { }
 
   get isDoctor(): boolean {
-    return this.loginService.getUserType() === 'doctor';
+    return this.userService.getUserType() === 'doctor';
   }
 
   get isAdmin(): boolean {
-    return this.loginService.getUserType() === 'admin';
+    return this.userService.getUserType() === 'admin';
   }
 
   clearUserType(): void {
-    this.loginService.clearUserType();
+    this.userService.clearUserType();
   }
 }

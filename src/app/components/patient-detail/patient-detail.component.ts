@@ -101,7 +101,7 @@ export class PatientDetailComponent implements OnInit{
     });
   }
   openCreateDialog(patientId: string): void {
-    const newReport = { id: patientId, summary: '', description: ''};
+    const newReport = { id: patientId, summary: '', description: '', comment: ''};
     const dialogRef = this.dialog.open(ReportCreateComponent, {
       width: '400px',
       data: newReport, // Pasa el objeto del nuevo doctor al diálogo

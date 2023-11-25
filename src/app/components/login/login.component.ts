@@ -6,6 +6,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user/user.service';
+import { Doctor } from 'src/app/interfaces/doctor';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +16,9 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class LoginComponent {
   selectedUserType: string = '';
-
+  doctor: any;
   mylogin : Login = {
+    id: '',
     password:'',
     username: '',
     role: ''
@@ -23,6 +26,7 @@ export class LoginComponent {
 
   constructor(
     private userService: UserService,
+    private doctorService: DoctorService,
     private router: Router,
     private modal: NgbModal,
     private dialog: MatDialog
@@ -40,10 +44,28 @@ export class LoginComponent {
           console.log(res);
           if (res.username == this.mylogin.username && res.password == this.mylogin.password) {
             console.log("login successfully");
-            if(res.role == "admin")
+            console.log(res.id);
+
+            this.userService.saveId(res.id);
+            this.userService.saveUserType(res.role);
+            this.userService.saveUsername(res.username);
+
+            if(res.role == "admin"){
               this.router.navigate(['/admin-dashboard']);
+            }
             else
-            this.router.navigate(['/doctor-dashboard']);
+            {
+              this.doctorService.getDoctorByUsername(res.username)
+              .subscribe(doctor => {
+                console.log(doctor.doctorId);
+
+                this.doctorService.saveDoctorId(doctor.doctorId);
+                this.router.navigate(['/doctor-dashboard']);
+              }, error => {
+                console.error('Error al obtener el doctor por username', error);
+                // Manejar errores aquí, por ejemplo, mostrar un mensaje de error
+              });
+            }
           } else {
             console.log("incorrect credentials");
           }

@@ -9,6 +9,11 @@
     <input matInput formControlName="description" placeholder="Description" maxlength="400">
     <mat-error *ngIf="reportForm?.get('description')?.hasError('required') && reportForm?.get('description')?.touched">Description is required</mat-error>
   </mat-form-field>
+
+<mat-form-field>
+  <input matInput formControlName="comment" placeholder="Comment" maxlength="400">
+  <mat-error *ngIf="reportForm?.get('comment')?.hasError('required') && reportForm?.get('comment')?.touched">Description is required</mat-error>
+</mat-form-field>
 </form>
 
 <div>

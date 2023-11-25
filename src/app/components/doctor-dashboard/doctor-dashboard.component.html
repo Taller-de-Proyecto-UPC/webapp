@@ -8,29 +8,28 @@
     <table class="doctor-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
-          <th> </th>
+          <th>Fecha de Nacimiento </th>
+          <th>Celular </th>
+
           <th> </th>
           <th> </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let patient of filteredPatients()" class="doctor-item">
-          <td>{{ patient.id }}</td>
           <td>{{ patient.name }}</td>
           <td>{{ patient.lastName }}</td>
           <td>{{ patient.email }}</td>
+          <td>{{ patient.birthday }}</td>
+          <td>{{ patient.phone }}</td>
           <td>
             <button mat-button (click)="openDetailDialog(patient)">Examenes</button>
           </td>
           <td>
             <button mat-button (click)="openEditDialog(patient)">Editar</button>
-          </td>
-          <td>
-            <button mat-button (click)="confirmDeletePatient(patient)">Borrar</button>
           </td>
         </tr>
       </tbody>

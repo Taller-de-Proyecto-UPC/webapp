@@ -64,10 +64,14 @@ export class AdminDashboardComponent {
   }
 
   openEditDialog(doctor: any): void {
+    //console.log(doctor.user.username);
+    //console.log(doctor.user.password);
     const dialogRef = this.dialog.open(DoctorEditDialogComponent, {
       width: '400px',
       data: doctor, // Pasa el doctor seleccionado al diálogo
     });
+
+
 
     dialogRef.afterClosed().subscribe(result => {
     });

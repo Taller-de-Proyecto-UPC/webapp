@@ -1,0 +1,4 @@
+.scrollable-dialog-content {
+    max-height: 60vh; /* Ajusta según tus necesidades */
+    overflow-y: auto;
+  }

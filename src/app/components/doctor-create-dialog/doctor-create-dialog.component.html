@@ -1,28 +1,77 @@
 <h1>Create Doctor</h1>
-<form [formGroup]="doctorForm">
-  <mat-form-field>
-    <input matInput formControlName="name"  (keydown)="onKeyPressName($event)" (input)="onInputName()" placeholder="Name" maxlength="50">
-    <mat-error *ngIf="doctorForm.get('name')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
-    <mat-error *ngIf="doctorForm?.get('name')?.hasError('required') && doctorForm?.get('name')?.touched">Name is required</mat-error>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <input matInput formControlName="lastName" (keydown)="onKeyPressLastname($event)"(input)="onInputLastname()" placeholder="Last Name" maxlength="50">
-    <mat-error *ngIf="doctorForm.get('lastName')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
-    <mat-error *ngIf="doctorForm?.get('lastName')?.hasError('required') && doctorForm?.get('lastName')?.touched">Last Name is required</mat-error>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <input matInput formControlName="email" placeholder="Email">
-    <mat-error *ngIf="doctorForm?.get('email')?.hasError('required') && doctorForm?.get('email')?.touched">Email is required</mat-error>
-    <mat-error *ngIf="doctorForm?.get('email')?.hasError('pattern') && doctorForm?.get('email')?.touched">Invalid email address</mat-error>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <input matInput formControlName="password" placeholder="Password" maxlength="50">
-    <mat-error *ngIf="doctorForm?.get('password')?.hasError('required') && doctorForm?.get('password')?.touched">Password is required</mat-error>
-  </mat-form-field>
-</form>
+<div class="scrollable-dialog-content">
+
+  <form [formGroup]="doctorForm">
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Name" maxlength="50" (input)="onInputName()" (keydown)="onKeyPressName($event)" maxlength="50">
+      <mat-error *ngIf="doctorForm.get('name')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
+      <mat-error *ngIf="doctorForm?.get('name')?.hasError('required') && doctorForm?.get('name')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" placeholder="Last Name" (input)="onInputLastname()" (keydown)="onKeyPressLastname($event)" maxlength="50">
+      <mat-error *ngIf="doctorForm.get('lastName')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
+      <mat-error *ngIf="doctorForm?.get('lastName')?.hasError('required') && doctorForm?.get('lastName')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email">
+      <mat-error *ngIf="doctorForm?.get('email')?.hasError('required') && doctorForm?.get('email')?.touched">Campo obligatorio</mat-error>
+      <mat-error *ngIf="doctorForm?.get('email')?.hasError('pattern') && doctorForm?.get('email')?.touched">Invalid email address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" placeholder="Phone">
+      <mat-error *ngIf="doctorForm?.get('phone')?.hasError('required') && doctorForm?.get('phone')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" placeholder="Address">
+      <mat-error *ngIf="doctorForm?.get('address')?.hasError('required') && doctorForm?.get('address')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field> 
+
+    <mat-form-field>
+      <mat-label>Birthday</mat-label>
+      <input matInput formControlName="birthday" placeholder="Birthday">
+      <mat-error *ngIf="doctorForm?.get('birthday')?.hasError('required') && doctorForm?.get('birthday')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field> 
+
+    <mat-form-field>
+      <mat-label>Specialty</mat-label>
+      <input matInput formControlName="specialty" placeholder="Specialty">
+      <mat-error *ngIf="doctorForm?.get('specialty')?.hasError('required') && doctorForm?.get('specialty')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field> 
+
+    <!-- Otros campos -->
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Username">
+      <mat-error *ngIf="doctorForm?.get('username')?.hasError('required') && doctorForm?.get('username')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Password" maxlength="50">
+      <mat-error *ngIf="doctorForm?.get('password')?.hasError('required') && doctorForm?.get('password')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>CIP</mat-label>
+      <input matInput formControlName="cip" placeholder="CIP">
+      <mat-error *ngIf="doctorForm?.get('cip')?.hasError('required') && doctorForm?.get('cip')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+  </form>
+
+</div>
+
 <div>
   <button mat-button (click)="save()">Save</button>
   <button mat-button (click)="closeDialog()">Cancel</button>

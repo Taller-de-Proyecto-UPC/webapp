@@ -25,6 +25,14 @@ export class PatientEditDialogComponent {
       name: [data?.name || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       lastName: [data?.lastName || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       email: [data?.email || null, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+      // Agrega los nuevos campos según sea necesario
+      phone: [data?.phone || null, [Validators.required, Validators.maxLength(15)] ], // Ajusta según tus necesidades
+      address: [data?.address || null, Validators.required],
+      birthday: [data?.birthday || null, Validators.required],
+      bloodType: [data?.bloodType || null, Validators.required],
+      diseases: [data?.diseases || null, Validators.required],
+      height: [data?.height || null, Validators.required],
+      weight: [data?.weight || null, Validators.required],
     });
   }
 
