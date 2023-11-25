@@ -28,3 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 C:/Users/UsuarioTK/Desktop/NeuralScan Application/webapp/src/assets/upload
+C:/Users/UsuarioTK/Desktop/NeuralScan Application/webapp/src/assets/upload

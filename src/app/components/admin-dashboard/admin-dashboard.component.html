@@ -1,28 +1,33 @@
 <app-navbar></app-navbar>
-<div class="citas-container">
+<div class="citas-container" style="overflow-x: auto;">
   <h2>Lista de Doctores</h2>
   <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" (keydown)="onKeyPress($event)" (input)="onInput($event)">
   <div *ngIf="hasError" style="color: red;">No se permiten caracteres especiales o números</div>
-    <button mat-raised-button (click)="openCreateDialog()">Crear Doctor</button>
+  <button mat-raised-button (click)="openCreateDialog()">Crear Doctor</button>
   <table class="doctor-table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Email</th>
-        <th>Password</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Especialidad</th>
         <th> </th>
         <th> </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let doctor of filteredDoctors()" class="doctor-item">
-        <td>{{ doctor.id }}</td>
         <td>{{ doctor.name }}</td>
         <td>{{ doctor.lastName }}</td>
         <td>{{ doctor.email }}</td>
-        <td>{{ sanitizePassword(doctor.password) }}</td>
+        <td>{{ doctor.phone }}</td>
+        <td>{{ doctor.address }}</td>
+        <td>{{ doctor.birthday }}</td>
+        <td>{{ doctor.specialty }}</td>
+        
         <td>
           <button mat-button (click)="openEditDialog(doctor)">Editar</button>
         </td>
@@ -33,3 +38,4 @@
     </tbody>
   </table>
 </div>
+

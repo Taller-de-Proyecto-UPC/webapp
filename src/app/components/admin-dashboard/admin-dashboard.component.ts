@@ -51,8 +51,6 @@ export class AdminDashboardComponent {
     }
   }
 
-
-
   obtenerListaDeDoctores() {
     this.doctorService.getAllDoctors().subscribe((data: any) => {
       this.doctorData = data;

@@ -6,30 +6,14 @@
     </div>
     <label class="login-as-label">Log in as:</label>
 
-    <div class="user-type">
-      <label>
-        <input type="radio" name="userType" value="admin" [(ngModel)]="selectedUserType"> Admin
-      </label>
-      <span class="divider">  </span>
-      <label>
-        <input type="radio" name="userType" value="doctor" [(ngModel)]="selectedUserType"> Doctor
-      </label>
-    </div>
-
     <div>
       <input
-        type="email"
-        [(ngModel)]="mylogin.email"
-        name="email"
-        placeholder="Email"
+        type="username"
+        [(ngModel)]="mylogin.username"
+        name="username"
+        placeholder="Username"
         required
-        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
       />
-      <div *ngIf="mylogin.email !== undefined && !isValidEmail()">
-        <div *ngIf="mylogin.email !== '' && !mylogin.email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')">
-          Please enter a valid email address.
-        </div>
-      </div>
     </div>
 
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,12 @@ export class LoginComponent {
 
   mylogin : Login = {
     password:'',
-    email: '',
+    username: '',
+    role: ''
   };
 
   constructor(
-    private loginService: LoginService,
+    private userService: UserService,
     private router: Router,
     private modal: NgbModal,
     private dialog: MatDialog
@@ -30,61 +32,32 @@ export class LoginComponent {
     this.selectedUserType = userType;
   }
   
-  isValidEmail(): boolean {
-    if (this.mylogin.email !== undefined && this.mylogin.email !== null) {
-      return this.mylogin.email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}') !== null;
-    }
-    return false;
-  }
 
   submitLogin() {
-    if (!this.mylogin.email || !this.mylogin.email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')) {
-      console.log('Correo electrónico no válido. No se enviará la solicitud.');
-      return;
-    }
-
-    if (this.selectedUserType === 'admin') {
-      this.loginService.getAdminbyEmail(this.mylogin)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            if (res.email == this.mylogin.email && res.password == this.mylogin.password) {
-              console.log("login successfully");
-              this.loginService.saveUserType('admin');
+    this.userService.getUser(this.mylogin)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.username == this.mylogin.username && res.password == this.mylogin.password) {
+            console.log("login successfully");
+            if(res.role == "admin")
               this.router.navigate(['/admin-dashboard']);
-            } else {
-              console.log("incorrect credentials");
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            this.openDialog("Credenciales incorrectas. Por favor, revise sus credenciales")
+            else
+            this.router.navigate(['/doctor-dashboard']);
+          } else {
+            console.log("incorrect credentials");
           }
-        });
-    } else if (this.selectedUserType === 'doctor'){
-      this.loginService.getDoctorbyEmail(this.mylogin)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            if (res.email == this.mylogin.email && res.password == this.mylogin.password) {
-              console.log("login successfully");
-              this.loginService.saveUserType('doctor');
-              this.router.navigate(['/doctor-dashboard']);
-            } else {
-              console.log("incorrect credentials");
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            this.openDialog("Credenciales incorrectas. Por favor, revise sus credenciales")
-          }
-        });
-      }
+        },
+        error: (err) => {
+          console.log(err);
+          this.openDialog("Credenciales incorrectas. Por favor, revise sus credenciales")
+        }
+      });
   }
   
 
   login() {
-    console.log(this.mylogin.email);
+    console.log(this.mylogin.username);
     console.log(this.mylogin.password);
   }
 

@@ -1,4 +1,5 @@
 export interface Login{
-    email:string;
-    password:string
+    username:string;
+    password:string;
+    role: string;
 }
