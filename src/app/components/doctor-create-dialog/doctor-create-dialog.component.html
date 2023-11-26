@@ -26,7 +26,7 @@
 
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone" placeholder="Phone">
+      <input matInput formControlName="phone" placeholder="Phone" maxlength="9">
       <mat-error *ngIf="doctorForm?.get('phone')?.hasError('required') && doctorForm?.get('phone')?.touched">Campo obligatorio</mat-error>
     </mat-form-field>
 
