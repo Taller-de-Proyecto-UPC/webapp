@@ -30,6 +30,7 @@ export class PatientCreateDialogComponent {
       phone: [data?.phone || null, [Validators.required, Validators.maxLength(15)] ], // Ajusta según tus necesidades
       address: [data?.address || null, Validators.required],
       birthday: [data?.birthday || null, Validators.required],
+      dni: [data?.dni || null, [Validators.required,Validators.maxLength(8)]],
       bloodType: [data?.bloodType || null, Validators.required],
       diseases: [data?.diseases || null, Validators.required],
       height: [data?.height || null, Validators.required],
