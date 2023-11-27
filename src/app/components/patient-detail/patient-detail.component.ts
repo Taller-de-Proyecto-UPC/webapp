@@ -7,6 +7,8 @@ import { ReportCreateComponent } from '../report-create/report-create.component'
 import { MatDialog } from '@angular/material/dialog';
 import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dialog.component';
 import { LoginService } from 'src/app/services/login/login.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -15,6 +17,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class PatientDetailComponent implements OnInit{
   patientId: string; // Declara una propiedad para almacenar el ID del paciente
+  patientName: string;
   reports: Report[] = [];
   selectedFile: File | null = null;
   imageBaseUrl = 'assets/upload/';
@@ -22,8 +25,9 @@ export class PatientDetailComponent implements OnInit{
   searchTerm: string = '';
 
   reportResponses: { [reportId: number]: string } = {};
-  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog, private loginService: LoginService) {
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog, private userService: UserService, private patientService: PatientService) {
     this.patientId = '';
+    this.patientName = '';
     this.responseFromServer = '';
    }
 
@@ -33,11 +37,12 @@ export class PatientDetailComponent implements OnInit{
       const id = params.get('id');
       if (id !== null) {
         this.patientId = id;
+        console.log(this.userService.getUserType())
         this.loadReports(id);
       }
       console.log(this.patientId)
-    });
-
+    })
+    this.patientName = this.patientService.getName() ?? ''; // Asigna '' si el nombre es null
   }
   
   filteredReports(): any[] {
@@ -46,14 +51,23 @@ export class PatientDetailComponent implements OnInit{
     );
   }
 
-  get isUserAdmin(): boolean {
-    return this.loginService.getUserType() === 'admin';
+  isNotUserAdmin(): boolean {
+    console.log(this.userService.getUserType())
+    return this.userService.getUserType() === 'admin';
   }
   
-  getReportImage(reportId: number): string {
-    return `${this.imageBaseUrl}${reportId}.jpg`;
+  getReportImage(report: any): string {
+    if(report.image.path.includes(".jpg"))
+      return `${this.imageBaseUrl}${report.id}.jpg`;
+    else
+      return `${this.imageBaseUrl}neuralscan.jpg`
   }
   
+
+  loadPatientName(): void {
+    this.patientName = this.patientService.getName() ?? ''; // Asigna '' si el nombre es null
+  }
+
   isSummaryEditable(summary: string): boolean {
     console.log('Summary:', summary);
     

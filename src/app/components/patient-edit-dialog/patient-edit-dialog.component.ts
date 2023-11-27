@@ -29,10 +29,10 @@ export class PatientEditDialogComponent {
       phone: [data?.phone || null, [Validators.required, Validators.maxLength(15)] ], // Ajusta según tus necesidades
       address: [data?.address || null, Validators.required],
       birthday: [data?.birthday || null, Validators.required],
-      bloodType: [data?.bloodType || null, Validators.required],
-      diseases: [data?.diseases || null, Validators.required],
-      height: [data?.height || null, Validators.required],
-      weight: [data?.weight || null, Validators.required],
+      bloodType: [data?.bloodType || null],
+      diseases: [data?.diseases || null],
+      height: [data?.height || null],
+      weight: [data?.weight || null],
     });
   }
 

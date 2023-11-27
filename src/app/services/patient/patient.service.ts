@@ -17,10 +17,25 @@ const httpOptions = {
 export class PatientService {
 
   BASE_URL = 'http://localhost:8080/api/v1'
+  private patientName = 'name';
+
   constructor(private http: HttpClient) {}
 
   getAllPatients(){
     return this.http.get<Patient>(`${this.BASE_URL}/patient`)
+  }
+
+  saveName(name: string, lastName: string): void {
+    localStorage.setItem(this.patientName, name+" "+lastName);
+  }
+
+  getName(): string | null {
+    return localStorage.getItem(this.patientName);
+  }
+
+
+  getPatientByDNI(dni: any){
+    return this.http.get<Patient>(`${this.BASE_URL}/patient/dni/`+dni)
   }
 
   updatePatient(id: any, patient: Patient){

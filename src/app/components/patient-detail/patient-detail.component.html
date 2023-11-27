@@ -1,6 +1,8 @@
 <div class="patient-details">
   <h2>Patient Details</h2>
 </div>
+<h3>{{patientName}}</h3>
+
 <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por summary">
 <button mat-raised-button (click)="openCreateDialog(patientId)">Crear Reporte</button>
 
@@ -14,8 +16,9 @@
         <th>Description</th>
         <th>Comments</th>
         <th>Image</th>
+        <th>Date</th>
         <th>Analysis</th>
-        <th *ngIf="!isUserAdmin"> </th>
+        <th *ngIf="!isNotUserAdmin"> </th>
       </tr>
     </thead>
     <tbody>
@@ -26,20 +29,19 @@
         <td>{{ report.comment }}</td>
         <td>
           <ng-container>
-            <p>{{ reportResponses[report.id] }}</p>
-            <img [src]="getReportImage(report.id)" alt="Report Image" style="width: 100px; height: 100px;">
-            <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && !isUserAdmin">
+            <img [src]="getReportImage(report)" alt="Report Image" style="width: 100px; height: 100px;">
+            <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && isNotUserAdmin">
               <input type="file" (change)="onFileChange($event, report.id)">
               <button (click)="uploadFile(report.id)">Upload File</button>
             </ng-container>
           </ng-container>
         </td>
+        <td>{{ report.image.added }}</td>
         
         <td>
           <button (click)="makePrediction(report)">Analyze</button>
         </td>
-        <td *ngIf="!isUserAdmin">
-
+        <td *ngIf="!isNotUserAdmin">
           <ng-container>
             <button mat-button (click)="openEditDialog(report)">Editar</button>
           </ng-container>

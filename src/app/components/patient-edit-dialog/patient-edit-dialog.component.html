@@ -45,25 +45,21 @@
   <mat-form-field>
     <mat-label>Blood Type</mat-label>
     <input matInput formControlName="bloodType" placeholder="Blood Type">
-    <mat-error *ngIf="patientForm?.get('bloodType')?.hasError('required') && patientForm?.get('bloodType')?.touched">Blood Type is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Diseases</mat-label>
     <input matInput formControlName="diseases" placeholder="Diseases">
-    <mat-error *ngIf="patientForm?.get('diseases')?.hasError('required') && patientForm?.get('diseases')?.touched">Diseases is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Height</mat-label>
     <input matInput formControlName="height" placeholder="Height">
-    <mat-error *ngIf="patientForm?.get('height')?.hasError('required') && patientForm?.get('height')?.touched">Height is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Weight</mat-label>
     <input matInput formControlName="weight" placeholder="Weight">
-    <mat-error *ngIf="patientForm?.get('weight')?.hasError('required') && patientForm?.get('weight')?.touched">Weight is required</mat-error>
   </mat-form-field>
 
 </form>

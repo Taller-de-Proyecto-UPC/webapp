@@ -89,7 +89,7 @@ export class DoctorDashboardComponent {
   openDetailDialog(patient: any) {
     // Supongamos que patient tiene una propiedad "id" que deseas pasar a la página de detalle
     const patientId = patient.id;
-
+    this.patientService.saveName(patient.name,patient.lastName);
     // Redirige a la página "patient-detail" con el ID del paciente en la URL
     this.router.navigate(['/patient-detail', patientId]);
   }

@@ -11,8 +11,10 @@
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
-          <th>Fecha de Nacimiento </th>
-          <th>Celular </th>
+          <th>Fecha de Nacimiento</th>
+          <th>Celular</th>
+          <th>DNI</th>
+
 
           <th> </th>
           <th> </th>
@@ -25,6 +27,8 @@
           <td>{{ patient.email }}</td>
           <td>{{ patient.birthday }}</td>
           <td>{{ patient.phone }}</td>
+          <td>{{ patient.dni }}</td>
+
           <td>
             <button mat-button (click)="openDetailDialog(patient)">Examenes</button>
           </td>
