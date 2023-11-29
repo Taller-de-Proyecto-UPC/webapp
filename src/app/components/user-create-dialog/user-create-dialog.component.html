@@ -1,0 +1,26 @@
+<h1>Create User</h1>
+<div class="scrollable-dialog-content">
+
+  <form [formGroup]="userForm">
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Username" maxlength="50" (input)="onInputUsername()" (keydown)="onKeyPressUsername($event)" maxlength="50">
+      <mat-error *ngIf="userForm.get('username')?.hasError('pattern') && !hasError">No se permiten caracteres especiales o números</mat-error>
+      <mat-error *ngIf="userForm?.get('username')?.hasError('required') && userForm?.get('username')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Password" maxlength="50">
+      <mat-error *ngIf="userForm?.get('password')?.hasError('required') && userForm?.get('password')?.touched">Campo obligatorio</mat-error>
+    </mat-form-field>
+  
+  </form>
+
+</div>
+
+<div>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

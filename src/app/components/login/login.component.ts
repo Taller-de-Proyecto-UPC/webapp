@@ -1,13 +1,13 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { Login } from 'src/app/interfaces/login';
-import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user/user.service';
-import { Doctor } from 'src/app/interfaces/doctor';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',

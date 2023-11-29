@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="citas-container" style="overflow-x: auto;">
+  <h2>Lista de Usuarios</h2>
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por username" (keydown)="onKeyPress($event)" (input)="onInput($event)">
+  <div *ngIf="hasError" style="color: red;">No se permiten caracteres especiales o números</div>
+  <button mat-raised-button (click)="openCreateDialog()">Crear Usuario</button>
+  <table class="doctor-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Activo</th>
+        <th> </th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers()" class="doctor-item">
+        <td>{{ user.username }}</td>
+        <td>{{ sanitizePassword(user.password) }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.active }}</td>
+        <td>
+          <button mat-button (click)="openEditDialog(user)">Editar</button>
+        </td>
+        <td>
+          <button mat-button (click)="confirmDeactivateUser(user)">Dar de baja</button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

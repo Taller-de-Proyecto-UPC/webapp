@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    background: #ecf0f3;
+  }
+  
+  .citas-container {
+    max-width: 80%;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2rem;
+    margin: 5rem auto;
+    border-radius: 2.5rem;
+    background-color: #89C5CC;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  table.doctor-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table.doctor-table th, table.doctor-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  table.doctor-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  
+  tr.doctor-item:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr.doctor-item:nth-child(odd) {
+    background-color: #fff;
+  }
+  

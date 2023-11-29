@@ -9,7 +9,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DoctorEditDialogComponent } from './components/doctor-edit-dialog/doctor-edit-dialog.component';
@@ -23,6 +22,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReportEditDialogComponent } from './components/report-edit-dialog/report-edit-dialog.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { UserCreateDialogComponent } from './components/user-create-dialog/user-create-dialog.component';
+import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit-dialog.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     NavbarComponent,
     ReportEditDialogComponent,
     MessageDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    UserDashboardComponent,
+    UserCreateDialogComponent,
+    UserEditDialogComponent
   ],
   imports: [
     BrowserModule,
