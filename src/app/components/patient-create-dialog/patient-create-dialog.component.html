@@ -1,3 +1,4 @@
+
 <!-- doctor-edit-dialog.component.html -->
 <h1>Create Patient</h1>
 <div class="scrollable-dialog-content">
@@ -61,11 +62,13 @@
   <mat-form-field>
     <mat-label>Height</mat-label>
     <input matInput formControlName="height" placeholder="Height">
+    <mat-error *ngIf="patientForm.get('height')?.hasError('pattern') && !hasError">Solo números</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Weight</mat-label>
     <input matInput formControlName="weight" placeholder="Weight">
+    <mat-error *ngIf="patientForm.get('weight')?.hasError('pattern') && !hasError">Solo números</mat-error>
   </mat-form-field>
 
 </form>

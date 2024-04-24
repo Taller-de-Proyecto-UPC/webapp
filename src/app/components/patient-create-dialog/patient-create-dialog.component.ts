@@ -36,8 +36,8 @@ export class PatientCreateDialogComponent {
       dni: [data?.dni || null, [Validators.required,Validators.maxLength(8)]],
       bloodType: [data?.bloodType || null],
       diseases: [data?.diseases || null],
-      height: [data?.height || null],
-      weight: [data?.weight || null],
+      height: [data?.height || null,Validators.pattern(/^\d*\.?\d*$/)],
+      weight: [data?.weight || null,Validators.pattern(/^\d*\.?\d*$/)],
     });
   }
 
@@ -70,6 +70,40 @@ export class PatientCreateDialogComponent {
         event.preventDefault();
       } else {
         // Si es una letra o espacio, resetea el estado del formulario
+        nameControl.setErrors(null);
+      }
+    }
+  }
+
+  onKeyPressHeight(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    const pattern = /^\d*\.?\d*$/; // Expresión regular para aceptar solo números
+    const nameControl = this.patientForm.get('height');
+  
+    if (nameControl) {
+      if (!pattern.test(inputChar)) {
+        // Si el caracter no es un número, establece el estado del formulario en inválido
+        nameControl.setErrors({ 'pattern': true });
+        event.preventDefault();
+      } else {
+        // Si es un número, resetea el estado del formulario
+        nameControl.setErrors(null);
+      }
+    }
+  }
+    
+  onKeyPressWeight(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    const pattern = /^\d*\.?\d*$/; // Expresión regular para aceptar solo números
+    const nameControl = this.patientForm.get('weight');
+  
+    if (nameControl) {
+      if (!pattern.test(inputChar)) {
+        // Si el caracter no es un número, establece el estado del formulario en inválido
+        nameControl.setErrors({ 'pattern': true });
+        event.preventDefault();
+      } else {
+        // Si es un número, resetea el estado del formulario
         nameControl.setErrors(null);
       }
     }
