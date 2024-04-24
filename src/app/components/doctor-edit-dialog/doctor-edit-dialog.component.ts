@@ -131,6 +131,7 @@ export class DoctorEditDialogComponent {
           username: this.doctorForm.value.username,
           password: this.doctorForm.value.password,
           role: this.doctorForm.value.role, // Ajusta según tus necesidades
+          active: true
         },
         cip: this.doctorForm.value.cip,
       };

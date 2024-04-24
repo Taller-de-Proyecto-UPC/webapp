@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class PatientService {
 
-  BASE_URL = 'http://localhost:8080/api/v1'
+  BASE_URL = 'http://neuralscanstorage.ue.r.appspot.com/api/v1'
   private patientName = 'name';
 
   constructor(private http: HttpClient) {}

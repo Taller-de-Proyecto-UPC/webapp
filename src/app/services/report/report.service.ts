@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReportService {
-  BASE_URL = 'http://localhost:8080/api/v1'
+  BASE_URL = 'http://neuralscanstorage.ue.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
   uploadFile(reportId: number, formData: FormData){
