@@ -35,8 +35,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "neuralScan-app:build:production"
+              "buildTarget": "neuralScan-app:build:production"
             },
             "development": {
-              "browserTarget": "neuralScan-app:build:development"
+              "buildTarget": "neuralScan-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "neuralScan-app:build"
+            "buildTarget": "neuralScan-app:build"
           }
         },
         "test": {

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +25,10 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { FormsModule } from '@angular/forms';
 import { UserCreateDialogComponent } from './components/user-create-dialog/user-create-dialog.component';
 import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit-dialog.component';
-
+import { NgModule } from '@angular/core';
+import {AngularFireModule} from '@angular/fire/compat'
+import {AngularFireStorageModule} from '@angular/fire/compat/storage'
+import { environment } from 'src/environment/environment';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit
     ReactiveFormsModule,
     MatInputModule,
     MatToolbarModule,
-
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
     
   ],
   providers: [],

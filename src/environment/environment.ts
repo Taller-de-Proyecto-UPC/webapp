@@ -4,8 +4,15 @@
 
 export const environment = {
     production: false,
-    server:'https://localhost',
-    PORT: '8080'
+    firebaseConfig : {
+      apiKey: "AIzaSyB7uVb4jFV2px5VFiCMZ1bbFVtXgVbKkl4",
+      authDomain: "neuralscan-e9066.firebaseapp.com",
+      projectId: "neuralscan-e9066",
+      storageBucket: "neuralscan-e9066.appspot.com",
+      messagingSenderId: "545711914216",
+      appId: "1:545711914216:web:1beaa77df07d294c8b5d5d",
+      measurementId: "G-7P588SYXRY"
+    }
   };
   
   /*

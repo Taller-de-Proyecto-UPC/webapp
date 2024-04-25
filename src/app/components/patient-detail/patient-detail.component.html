@@ -30,10 +30,11 @@
         <td>
           <ng-container>
             <img [src]="getReportImage(report)" alt="Report Image" style="width: 100px; height: 100px;">
-
+            <input type="file" (change)="onFileChange($event, report.id)">
+            
             <ng-container *ngIf="report.description !== 'No tiene aneurisma' && report.description !== 'Tiene aneurisma' && isNotUserAdmin">
-              <input type="file" (change)="onFileChange($event, report.id)">
-              <button (click)="uploadFile(report.id)">Upload File</button>
+              
+              <button (click)="uploadFile(report,report.id)">Upload File</button>
             </ng-container>
             
           </ng-container>

@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReportService {
-  BASE_URL = 'http://neuralscanstorage.ue.r.appspot.com/api/v1'
+  BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
   uploadFile(reportId: number, formData: FormData){
@@ -38,10 +38,12 @@ export class ReportService {
   }
 
   updateReport(id: any, report: Report){
+    console.log(report);
+
     this.http.put(`${this.BASE_URL}/report/`+ id, report).subscribe(
       (response: any) => {
         console.log('El Report se actualizo satisfactoriamente:', response);
-        location.reload();
+        //location.reload();
       },
       (error: any) => {
         console.error('Error al actualizar el Report', error);

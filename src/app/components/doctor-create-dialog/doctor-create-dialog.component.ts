@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Doctor } from 'src/app/interfaces/doctor';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-doctor-create-dialog',

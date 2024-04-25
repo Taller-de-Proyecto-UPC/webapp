@@ -9,6 +9,11 @@ import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dia
 import { LoginService } from 'src/app/services/login/login.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ImageService } from 'src/app/services/image/image.service';
+import { Image } from 'src/app/interfaces/image';
+
+
 
 @Component({
   selector: 'app-patient-detail',
@@ -25,7 +30,7 @@ export class PatientDetailComponent implements OnInit{
   searchTerm: string = '';
 
   reportResponses: { [reportId: number]: string } = {};
-  constructor(private route: ActivatedRoute, private reportService: ReportService, private dialog: MatDialog, private userService: UserService, private patientService: PatientService) {
+  constructor(private fireStorage:AngularFireStorage, private route: ActivatedRoute, private imageService: ImageService, private reportService: ReportService, private dialog: MatDialog, private userService: UserService, private patientService: PatientService) {
     this.patientId = '';
     this.patientName = '';
     this.responseFromServer = '';
@@ -57,10 +62,8 @@ export class PatientDetailComponent implements OnInit{
   }
   
   getReportImage(report: any): string {
-    if(report.image.path.includes(".jpg"))
-      return `${this.imageBaseUrl}${report.id}.jpg`;
-    else
-      return `${this.imageBaseUrl}neuralscan.jpg`
+      return `${report.image.path}`;
+
   }
   
 
@@ -106,6 +109,36 @@ export class PatientDetailComponent implements OnInit{
     this.selectedFile = file;
   }
 
+  async uploadFile(report: any, reportId: number) {
+    if (!this.selectedFile) {
+      console.error('No se ha seleccionado un archivo.');
+      return;
+    }
+
+    const path = `storage/${reportId}`
+    const uploadTask = await this.fireStorage.upload(path,this.selectedFile)
+    const url = await uploadTask.ref.getDownloadURL()
+    const urlString: string = url.toString();
+
+    console.log(urlString)
+
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+    const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+
+    const newImageData: Image = {
+        id: report.id,
+        path: `${urlString}`,
+        added: `${formattedDate} ${formattedTime}` // Ajusta según la estructura de tu formulario
+    };
+
+    console.log(newImageData)
+
+  // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
+    this.imageService.updateImage(report.id, newImageData);
+
+ }
+
   makePrediction(report: any) {
     this.reportService.makePrediction(report.id).subscribe((response: any) => {
       // Asigna la respuesta al informe correspondiente
@@ -126,27 +159,7 @@ export class PatientDetailComponent implements OnInit{
     });
   }
 
-  uploadFile(reportId: number) {
-    if (!this.selectedFile) {
-      console.error('No se ha seleccionado un archivo.');
-      return;
-    }
-  
-    const formData = new FormData();
-    formData.append('files', this.selectedFile);
-  
-    this.reportService.uploadFile(reportId, formData).subscribe(
-      (response) => {
-        console.log('Archivo subido con éxito', response);
-        location.reload();
-        // Realiza acciones adicionales si es necesario
-      },
-      (error) => {
-        console.error('Error al cargar el archivo', error);
-      }
-    );
-    
-  }
+
 
   
 }

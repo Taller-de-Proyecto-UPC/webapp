@@ -55,16 +55,7 @@ export class LoginComponent {
             }
             else
             {
-              this.doctorService.getDoctorByUsername(res.username)
-              .subscribe(doctor => {
-                console.log(doctor.doctorId);
-
-                this.doctorService.saveDoctorId(doctor.doctorId);
-                this.router.navigate(['/doctor-dashboard']);
-              }, error => {
-                console.error('Error al obtener el doctor por username', error);
-                // Manejar errores aquí, por ejemplo, mostrar un mensaje de error
-              });
+              this.router.navigate(['/doctor-dashboard']);
             }
           } else {
             console.log("incorrect credentials");

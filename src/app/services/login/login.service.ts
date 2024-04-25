@@ -19,7 +19,7 @@ const httpOptions = {
 })
 
 export class LoginService {
-  BASE_URL = 'http://neuralscanstorage.ue.r.appspot.com/api/v1'
+  BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
     constructor(private http: HttpClient) {}
 
 

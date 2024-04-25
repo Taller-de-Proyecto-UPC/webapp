@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DoctorEditDialogComponent } from '../doctor-edit-dialog/doctor-edit-dialog.component';
 import { DoctorCreateDialogComponent } from '../doctor-create-dialog/doctor-create-dialog.component';
 import { Doctor } from 'src/app/interfaces/doctor';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Component } from '@angular/core';
 
 
 
