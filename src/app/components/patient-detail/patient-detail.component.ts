@@ -12,7 +12,10 @@ import { UserService } from 'src/app/services/user/user.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ImageService } from 'src/app/services/image/image.service';
 import { Image } from 'src/app/interfaces/image';
-
+import { initializeApp } from 'firebase/app';
+import { environment } from 'src/environment/environment';
+import { getStorage, ref } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 
 @Component({
@@ -28,6 +31,12 @@ export class PatientDetailComponent implements OnInit{
   imageBaseUrl = 'assets/upload/';
   responseFromServer: string;
   searchTerm: string = '';
+  defaultProject = initializeApp(environment.firebaseConfig);
+  storage = getStorage();
+  //defaultStorage = getStorage(this.defaultProject);
+  //defaultFirestore = getFirestore(this.defaultProject);
+  //storage = getStorage();
+
 
   reportResponses: { [reportId: number]: string } = {};
   constructor(private fireStorage:AngularFireStorage, private route: ActivatedRoute, private imageService: ImageService, private reportService: ReportService, private dialog: MatDialog, private userService: UserService, private patientService: PatientService) {
@@ -119,8 +128,12 @@ export class PatientDetailComponent implements OnInit{
     const uploadTask = await this.fireStorage.upload(path,this.selectedFile)
     const url = await uploadTask.ref.getDownloadURL()
     const urlString: string = url.toString();
-
-    console.log(urlString)
+    
+    //const pathReference = ref(this.storage, 'storage/'+reportId+'.jpg');
+    //const gsReference = ref(this.storage, 'gs://bucket/storage'+reportId+'.jpg');
+    //console.log("pathReference")
+    //console.log(pathReference)
+    //console.log(gsReference)
 
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;

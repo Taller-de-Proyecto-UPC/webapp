@@ -15,7 +15,7 @@ export class ImageService {
     this.http.put(`${this.BASE_URL}/image/`+ id, image).subscribe(
       (response: any) => {
         console.log('La imagen se actualizo satisfactoriamente:', response);
-        location.reload();
+        //location.reload();
       },
       (error: any) => {
         console.error('Error al actualizar la imagen', error);
