@@ -29,6 +29,7 @@ import { NgModule } from '@angular/core';
 import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireStorageModule} from '@angular/fire/compat/storage'
 import { environment } from 'src/environment/environment';
+import { provideStorage, getStorage } from '@angular/fire/storage'
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { environment } from 'src/environment/environment';
     MatInputModule,
     MatToolbarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    provideStorage(() => getStorage())
     
   ],
   providers: [],

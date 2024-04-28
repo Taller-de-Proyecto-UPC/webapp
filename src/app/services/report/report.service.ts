@@ -64,7 +64,7 @@ export class ReportService {
     return this.http.get<Report[]>(`${this.BASE_URL}/report/`+ "patient/"+patientId);
   }
 
-  makePrediction(reportId: any) {
-    return this.http.post(`http://127.0.0.1:5000/predict/${reportId}`, {});
+  makePrediction(img_url: any) {
+    return this.http.post(`https://prediction-mieqagttea-rj.a.run.app/predict`, {"img_url": img_url}, httpOptions);
   }
 }

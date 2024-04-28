@@ -22,14 +22,18 @@ export class DoctorService {
   BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
-  private doctorId = 'doctorId';
+  private doctorId = '0';
 
   saveDoctorId(doctorId: string): void {
     localStorage.setItem(this.doctorId, doctorId);
   }
 
-  getDoctorId(): string | null {
-    return localStorage.getItem(this.doctorId);
+  getDoctorId(): number | null {
+    const storedId = localStorage.getItem(this.doctorId);
+    if (storedId) {
+      return parseInt(storedId, 10); // Parsea la cadena almacenada a un número
+    }
+    return null;
   }
 
   getAllDoctors(){

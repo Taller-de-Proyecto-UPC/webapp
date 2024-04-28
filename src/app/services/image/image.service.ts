@@ -10,7 +10,6 @@ export class ImageService {
   constructor(private http: HttpClient) {}
 
   updateImage(id: any, image: Image){
-    console.log(image);
 
     this.http.put(`${this.BASE_URL}/image/`+ id, image).subscribe(
       (response: any) => {

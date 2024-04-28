@@ -45,17 +45,32 @@ export class LoginComponent {
           if (res.username == this.mylogin.username && res.password == this.mylogin.password) {
             console.log("login successfully");
             console.log(res.id);
+            console.log(res.role);
 
             this.userService.saveId(res.id);
             this.userService.saveUserType(res.role);
             this.userService.saveUsername(res.username);
 
+            
             if(res.role == "admin"){
               this.router.navigate(['/admin-dashboard']);
             }
             else
             {
-              this.router.navigate(['/doctor-dashboard']);
+              console.log(res["username"]);
+              this.doctorService.getDoctorByUsername(res.username)
+              .subscribe(doctor => {
+                console.log(doctor);
+                console.log(doctor["doctorId"]);
+
+                this.doctorService.saveDoctorId(doctor.doctorId);
+                console.log(this.doctorService.getDoctorId())
+                this.router.navigate(['/doctor-dashboard']);
+                
+              }, error => {
+                console.error('Error al obtener el doctor por username', error);
+                // Manejar errores aquí, por ejemplo, mostrar un mensaje de error
+              });
             }
           } else {
             console.log("incorrect credentials");

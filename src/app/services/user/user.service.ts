@@ -23,7 +23,7 @@ export class UserService {
 
 
   private userTypeKey = 'userType';
-  private id = '0';
+  private id = 'userId';
   private username = 'username';
 
   saveUserType(userType: string): void {

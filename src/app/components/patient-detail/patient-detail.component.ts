@@ -12,10 +12,9 @@ import { UserService } from 'src/app/services/user/user.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ImageService } from 'src/app/services/image/image.service';
 import { Image } from 'src/app/interfaces/image';
-import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environment/environment';
-import { getStorage, ref } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
+//import {ref, Storage } from "@angular/fire/storage";
+import {ref, getStorage } from "firebase/storage";
+
 
 
 @Component({
@@ -31,12 +30,6 @@ export class PatientDetailComponent implements OnInit{
   imageBaseUrl = 'assets/upload/';
   responseFromServer: string;
   searchTerm: string = '';
-  defaultProject = initializeApp(environment.firebaseConfig);
-  storage = getStorage();
-  //defaultStorage = getStorage(this.defaultProject);
-  //defaultFirestore = getFirestore(this.defaultProject);
-  //storage = getStorage();
-
 
   reportResponses: { [reportId: number]: string } = {};
   constructor(private fireStorage:AngularFireStorage, private route: ActivatedRoute, private imageService: ImageService, private reportService: ReportService, private dialog: MatDialog, private userService: UserService, private patientService: PatientService) {
@@ -67,11 +60,15 @@ export class PatientDetailComponent implements OnInit{
 
   isNotUserAdmin(): boolean {
     console.log(this.userService.getUserType())
-    return this.userService.getUserType() === 'admin';
+    return this.userService.getUserType() == 'admin';
   }
   
   getReportImage(report: any): string {
-      return `${report.image.path}`;
+    if (report.image && report.image.path && report.image.path != "C:/Users/stefa/OneDrive/Escritorio/TP1/Frontend/webapp/src/assets/upload") {
+      return report.image.path;
+    } else {
+      return "../assets/upload/neuralscan.jpg";
+    }
 
   }
   
@@ -124,17 +121,11 @@ export class PatientDetailComponent implements OnInit{
       return;
     }
 
-    const path = `storage/${reportId}`
+    const path = `storage/${reportId}`   
     const uploadTask = await this.fireStorage.upload(path,this.selectedFile)
     const url = await uploadTask.ref.getDownloadURL()
     const urlString: string = url.toString();
     
-    //const pathReference = ref(this.storage, 'storage/'+reportId+'.jpg');
-    //const gsReference = ref(this.storage, 'gs://bucket/storage'+reportId+'.jpg');
-    //console.log("pathReference")
-    //console.log(pathReference)
-    //console.log(gsReference)
-
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
     const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
@@ -149,13 +140,14 @@ export class PatientDetailComponent implements OnInit{
 
   // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
     this.imageService.updateImage(report.id, newImageData);
+    location.reload();
 
  }
 
   makePrediction(report: any) {
-    this.reportService.makePrediction(report.id).subscribe((response: any) => {
+    this.reportService.makePrediction(report.image.path).subscribe((response: any) => {
       // Asigna la respuesta al informe correspondiente
-      report.description = this.reportResponses[report.id] = response.result;
+      report.description = response.result;
       this.reportService.updateReport(report.id,report);
       location.reload();
     });
