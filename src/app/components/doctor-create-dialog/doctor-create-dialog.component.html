@@ -37,10 +37,10 @@
     </mat-form-field> 
 
     <mat-form-field>
-      <mat-label>Birthday</mat-label>
-      <input matInput formControlName="birthday" placeholder="Birthday">
+      <mat-label>Birthday (dd/mm/yyyy)</mat-label>
+      <input matInput formControlName="birthday" placeholder="dd/mm/yyyy" (input)="formatDate($event)">
       <mat-error *ngIf="doctorForm?.get('birthday')?.hasError('required') && doctorForm?.get('birthday')?.touched">Campo obligatorio</mat-error>
-    </mat-form-field> 
+    </mat-form-field>
 
     <mat-form-field>
       <mat-label>Specialty</mat-label>
@@ -50,11 +50,16 @@
 
     <!-- Otros campos -->
   
+
     <mat-form-field>
       <mat-label>CIP</mat-label>
-      <input matInput formControlName="cip" placeholder="CIP">
-      <mat-error *ngIf="doctorForm?.get('cip')?.hasError('required') && doctorForm?.get('cip')?.touched">Campo obligatorio</mat-error>
+      <input matInput formControlName="cip" placeholder="CIP" maxlength="6" pattern="[0-9]*">
+      <mat-error *ngIf="doctorForm.get('cip')?.hasError('required') && doctorForm.get('cip')?.touched">Campo obligatorio</mat-error>
+      <mat-error *ngIf="doctorForm.get('cip')?.hasError('pattern') && doctorForm.get('cip')?.touched">Solo se permiten números</mat-error>
+      <mat-error *ngIf="doctorForm.get('cip')?.hasError('maxlength')">Máximo 6 dígitos</mat-error>
     </mat-form-field>
+    
+    
 
     <h2>Create User</h2>
 

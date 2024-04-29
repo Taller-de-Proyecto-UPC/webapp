@@ -22,7 +22,7 @@ export class DoctorService {
   BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
-  private doctorId = '0';
+  private doctorId = 'doctorId';
 
   saveDoctorId(doctorId: string): void {
     localStorage.setItem(this.doctorId, doctorId);

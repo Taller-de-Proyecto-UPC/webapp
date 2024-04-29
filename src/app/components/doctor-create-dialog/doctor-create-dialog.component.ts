@@ -31,7 +31,7 @@ export class DoctorCreateDialogComponent {
       password: [data?.user?.password || null, Validators.required],
       username: [data?.user?.username || null, Validators.required], 
       role:[data?.user?.role || null],     
-      cip: [data?.cip || null]
+      cip: [data?.cip || null, [Validators.required, Validators.pattern(/^[0-9]{1,6}$/)]]
     });
     
   }
@@ -51,6 +51,18 @@ export class DoctorCreateDialogComponent {
         nameControl.setErrors(null);
       }
     }
+  }
+
+  formatDate(event: any) {
+    let input = event.target.value;
+    input = input.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+    if (input.length > 8) {
+      input = input.slice(0, 8); // Limitar la longitud a 8 caracteres (dd/mm/yyyy)
+    }
+    const day = input.slice(0, 2);
+    const month = input.slice(2, 4);
+    const year = input.slice(4, 8);
+    event.target.value = `${day}/${month}/${year}`;
   }
 
   onKeyPressLastname(event: KeyboardEvent): void {
