@@ -52,7 +52,7 @@
   
 
     <mat-form-field>
-      <mat-label>CIP</mat-label>
+      <mat-label>CMP</mat-label>
       <input matInput formControlName="cip" placeholder="CIP" maxlength="6" pattern="[0-9]*">
       <mat-error *ngIf="doctorForm.get('cip')?.hasError('required') && doctorForm.get('cip')?.touched">Campo obligatorio</mat-error>
       <mat-error *ngIf="doctorForm.get('cip')?.hasError('pattern') && doctorForm.get('cip')?.touched">Solo se permiten números</mat-error>

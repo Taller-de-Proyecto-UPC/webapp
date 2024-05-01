@@ -139,7 +139,7 @@ export class PatientDetailComponent implements OnInit{
     console.log(newImageData)
 
   // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
-    this.imageService.updateImage(report.id, newImageData);
+    await this.imageService.updateImage(report.id, newImageData);
     location.reload();
 
  }
