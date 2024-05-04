@@ -54,6 +54,7 @@ export class ReportEditDialogComponent {
       };
     // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
     this.reportService.updateReport(newReportData.id,newReportData);
+    location.reload()
     this.dialogRef.close(newReportData);
     }
 }

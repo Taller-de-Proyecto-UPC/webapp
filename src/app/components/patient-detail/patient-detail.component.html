@@ -18,7 +18,7 @@
         <th>Image</th>
         <th>Date</th>
         <th>Analysis</th>
-        <th *ngIf="!isNotUserAdmin"> </th>
+        <th *ngIf="isNotUserAdmin"> </th>
       </tr>
     </thead>
     <tbody>
@@ -44,7 +44,7 @@
         <td>
           <button (click)="makePrediction(report)">Analyze</button>
         </td>
-        <td *ngIf="!isNotUserAdmin">
+        <td *ngIf="isNotUserAdmin">
           <ng-container>
             <button mat-button (click)="openEditDialog(report)">Editar</button>
           </ng-container>

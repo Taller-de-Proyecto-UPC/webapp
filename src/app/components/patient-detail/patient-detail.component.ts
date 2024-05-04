@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReportService } from 'src/app/services/report/report.service';
 import { Report } from 'src/app/interfaces/report';
-import { Observable } from 'rxjs';
+import { concatMap, from, Observable } from 'rxjs';
 import { ReportCreateComponent } from '../report-create/report-create.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dialog.component';
@@ -115,43 +115,59 @@ export class PatientDetailComponent implements OnInit{
     this.selectedFile = file;
   }
 
-  async uploadFile(report: any, reportId: number) {
+  uploadFile(report: any, reportId: number) {
     if (!this.selectedFile) {
-      console.error('No se ha seleccionado un archivo.');
-      return;
+        console.error('No se ha seleccionado un archivo.');
+        return;
     }
 
-    const path = `storage/${reportId}`   
-    const uploadTask = await this.fireStorage.upload(path,this.selectedFile)
-    const url = await uploadTask.ref.getDownloadURL()
-    const urlString: string = url.toString();
-    
-    const currentDate = new Date();
-    const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-    const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+    const path = `storage/${reportId}`;
+    const uploadTask$ = from(this.fireStorage.upload(path, this.selectedFile));
+    const url$ = uploadTask$.pipe(
+        concatMap(uploadTask => from(uploadTask.ref.getDownloadURL()))
+    );
 
-    const newImageData: Image = {
-        id: report.id,
-        path: `${urlString}`,
-        added: `${formattedDate} ${formattedTime}` // Ajusta según la estructura de tu formulario
-    };
+    url$.subscribe(
+        (url: string) => {
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+            const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+            console.log(url)
+            const newImageData: Image = {
+                id: report.id,
+                path: url,
+                added: `${formattedDate} ${formattedTime}`
+            };
 
-    console.log(newImageData)
+            console.log(newImageData);
 
-  // Aquí puedes enviar los datos actualizados al servidor o realizar la edición
-    await this.imageService.updateImage(report.id, newImageData);
-    location.reload();
+            // Envía los datos actualizados al servidor o realiza la edición
+            this.imageService.updateImage(report.id, newImageData);
+            setTimeout(() => {
+              console.log("Espera de 2 segundos completada");
+              location.reload();
+            }, 2000);
 
- }
+        }
+    );
+  }
 
   makePrediction(report: any) {
     this.reportService.makePrediction(report.image.path).subscribe((response: any) => {
-      // Asigna la respuesta al informe correspondiente
-      report.description = response.result;
-      this.reportService.updateReport(report.id,report);
-      location.reload();
+        // Asigna la respuesta al informe correspondiente
+        report.description = response.result;
+
+        // Actualiza el informe después de la predicción
+        this.reportService.updateReport(report.id, report);
+
+        // Recarga la página
+        setTimeout(() => {
+          console.log("Espera de 2 segundos completada");
+          //location.reload();
+        }, 2000);
     });
-  }
+}
+
   openCreateDialog(patientId: string): void {
     const newReport = { id: patientId, summary: '', description: '', comment: ''};
     const dialogRef = this.dialog.open(ReportCreateComponent, {
