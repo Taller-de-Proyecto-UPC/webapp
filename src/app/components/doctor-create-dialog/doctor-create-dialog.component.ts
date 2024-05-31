@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Doctor } from 'src/app/interfaces/doctor';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
@@ -12,6 +12,7 @@ import { Component, Inject } from '@angular/core';
 export class DoctorCreateDialogComponent {
   doctorForm: FormGroup;
   hasError: boolean = false;
+  dateFormat: string = 'dd/MM/yyyy';
 
   constructor(
     private dialogRef: MatDialogRef<DoctorCreateDialogComponent>,
@@ -24,9 +25,9 @@ export class DoctorCreateDialogComponent {
       name: [data?.name || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       lastName: [data?.lastName || null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       email: [data?.email || null, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
-      phone: [data?.phone || null, Validators.maxLength(15)], // Ajusta según tus necesidades
+      phone: [null, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(9)]], // Validación de solo números y longitud máxima de 9
       address: [data?.address || null, Validators.required],
-      birthday: [data?.birthday || null, Validators.required],
+      birthday: ['', [Validators.required]],
       specialty: [data?.specialty || null, Validators.required],
       password: [data?.user?.password || null, Validators.required],
       username: [data?.user?.username || null, Validators.required], 
@@ -53,16 +54,23 @@ export class DoctorCreateDialogComponent {
     }
   }
 
-  formatDate(event: any) {
-    let input = event.target.value;
-    input = input.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-    if (input.length > 8) {
-      input = input.slice(0, 8); // Limitar la longitud a 8 caracteres (dd/mm/yyyy)
+  futureDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Asegúrate de que solo compares fechas sin tiempos
+      if (value > today) {
+        return { 'futureDate': true };
+      }
     }
-    const day = input.slice(0, 2);
-    const month = input.slice(2, 4);
-    const year = input.slice(4, 8);
-    event.target.value = `${day}/${month}/${year}`;
+    return null;
+  }
+
+  formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   onKeyPressLastname(event: KeyboardEvent): void {
@@ -90,7 +98,21 @@ export class DoctorCreateDialogComponent {
   }
 
   onInputLastname(): void {
-    const nameControl = this.doctorForm.get('name');
+    const nameControl = this.doctorForm.get('lastName');
+    if (nameControl) {
+      nameControl.setErrors(null);
+    }  
+  }
+
+  onKeyPressPhone(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!/[0-9]/.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onInputPhone(): void {
+    const nameControl = this.doctorForm.get('phone');
     if (nameControl) {
       nameControl.setErrors(null);
     }  
@@ -108,6 +130,9 @@ export class DoctorCreateDialogComponent {
   }
 
   save() {
+
+    console.log(this.doctorForm.value);
+
     if (
       this.isNotEmpty(this.doctorForm.value.name) &&
       this.isNotEmpty(this.doctorForm.value.lastName) &&

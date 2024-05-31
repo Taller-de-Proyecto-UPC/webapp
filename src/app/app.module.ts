@@ -30,7 +30,19 @@ import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireStorageModule} from '@angular/fire/compat/storage'
 import { environment } from 'src/environment/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage'
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // Cambia el formato de entrada del campo de fecha
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // Cambia el formato de visualización del campo de fecha
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +72,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage'
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
     MatToolbarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -67,7 +81,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage'
     provideStorage(() => getStorage())
     
   ],
-  providers: [],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

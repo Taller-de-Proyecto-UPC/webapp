@@ -18,8 +18,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DoctorService {
-
-  BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
+ //https://tough-country-423601-c7.rj.r.appspot.com/
+  BASE_URL = 'https://tough-country-423601-c7.rj.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
   private doctorId = 'doctorId';

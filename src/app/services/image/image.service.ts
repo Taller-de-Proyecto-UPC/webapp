@@ -6,7 +6,7 @@ import { Image } from 'src/app/interfaces/image';
   providedIn: 'root'
 })
 export class ImageService {
-  BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
+  BASE_URL = 'https://tough-country-423601-c7.rj.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
   updateImage(id: any, image: Image){

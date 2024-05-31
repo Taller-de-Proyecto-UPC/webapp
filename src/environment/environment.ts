@@ -5,13 +5,13 @@
 export const environment = {
     production: false,
     firebaseConfig : {
-      apiKey: "AIzaSyB7uVb4jFV2px5VFiCMZ1bbFVtXgVbKkl4",
-      authDomain: "neuralscan-e9066.firebaseapp.com",
-      projectId: "neuralscan-e9066",
-      storageBucket: "neuralscan-e9066.appspot.com",
-      messagingSenderId: "545711914216",
-      appId: "1:545711914216:web:1beaa77df07d294c8b5d5d",
-      measurementId: "G-7P588SYXRY"
+      apiKey: "AIzaSyA59s4whsJvfN3Ttz1pWfHIhBhC17ia0ZQ",
+      authDomain: "neuralscan-be700.firebaseapp.com",
+      projectId: "neuralscan-be700",
+      storageBucket: "neuralscan-be700.appspot.com",
+      messagingSenderId: "83434416211",
+      appId: "1:83434416211:web:b8d0bdce0bbb286ae5bea6",
+      measurementId: "G-KLVV94R0NZ"
     }
   };
   

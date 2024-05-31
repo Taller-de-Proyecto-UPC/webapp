@@ -21,7 +21,8 @@ export class LoginComponent {
     id: '',
     password:'',
     username: '',
-    role: ''
+    role: '',
+    active: false,
   };
 
   constructor(
@@ -42,7 +43,12 @@ export class LoginComponent {
       .subscribe({
         next: (res) => {
           console.log(res);
-          if (res.username == this.mylogin.username && res.password == this.mylogin.password) {
+          if (res.username == this.mylogin.username && res.password == this.mylogin.password)  {
+
+            if(res.active != true){
+              this.openDialog("Este usuario esta inactivo, por favor comuníquese con su administrador.")
+              return
+            }
             console.log("login successfully");
             console.log(res.id);
             console.log(res.role);
@@ -50,7 +56,7 @@ export class LoginComponent {
             this.userService.saveId(res.id);
             this.userService.saveUserType(res.role);
             this.userService.saveUsername(res.username);
-
+            
             
             if(res.role == "admin"){
               this.router.navigate(['/admin-dashboard']);

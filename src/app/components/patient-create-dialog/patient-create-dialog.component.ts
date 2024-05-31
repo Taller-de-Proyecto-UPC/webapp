@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { DoctorCreateDialogComponent } from '../doctor-create-dialog/doctor-create-dialog.component';
@@ -178,6 +178,50 @@ export class PatientCreateDialogComponent {
     }
   }
   
+  futureDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Asegúrate de que solo compares fechas sin tiempos
+      if (value > today) {
+        return { 'futureDate': true };
+      }
+    }
+    return null;
+  }
+
+  formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  onKeyPressDNI(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!/[0-9]/.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onInputDNI(): void {
+    const nameControl = this.patientForm.get('dni');
+    if (nameControl) {
+      nameControl.setErrors(null);
+    }  
+  }  onKeyPressPhone(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!/[0-9]/.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onInputPhone(): void {
+    const nameControl = this.patientForm.get('phone');
+    if (nameControl) {
+      nameControl.setErrors(null);
+    }  
+  }
 
   closeDialog() {
     this.dialogRef.close();

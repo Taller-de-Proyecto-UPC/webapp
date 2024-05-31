@@ -51,17 +51,31 @@ export class DoctorDashboardComponent {
     }
   }
 
+  filteredPatients(): any[] {
+    const searchTermLower = this.searchTerm.toLowerCase();
+    const searchTerms = searchTermLower.split(' ');
+  
+    return this.patientData.filter(patient => {
+      const name = patient.name.toLowerCase();
+      const lastName = patient.lastName.toLowerCase();
+      const fullName = `${name} ${lastName}`;
+      
+      const matchesFirstName = searchTerms.some(term => name.includes(term));
+      const matchesLastName = searchTerms.some(term => lastName.includes(term));
+      const matchesFullName = searchTerms.every(term => fullName.includes(term));
+  
+      return matchesFirstName || matchesLastName || matchesFullName;
+    });
+  }
+  
+
   obtenerListaDePacientes() {
     this.patientService.getAllPatients().subscribe((data: any) => {
       this.patientData = data;
     });
   }
 
-  filteredPatients(): any[] {
-    return this.patientData.filter(patient =>
-      patient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
+
 
   openEditDialog(patient: any): void {
     const dialogRef = this.dialog.open(PatientEditDialogComponent, {

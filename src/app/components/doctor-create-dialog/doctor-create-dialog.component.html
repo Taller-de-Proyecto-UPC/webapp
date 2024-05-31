@@ -26,8 +26,16 @@
 
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone" placeholder="Phone" maxlength="9">
-      <mat-error *ngIf="doctorForm?.get('phone')?.hasError('required') && doctorForm?.get('phone')?.touched">Campo obligatorio</mat-error>
+      <input matInput formControlName="phone" placeholder="Phone" maxlength="9" (input)="onInputPhone()" (keypress)="onKeyPressPhone($event)">
+      <mat-error *ngIf="doctorForm.get('phone')?.hasError('pattern') && !hasError">
+        Solo se permiten números
+      </mat-error>
+      <mat-error *ngIf="doctorForm?.get('phone')?.hasError('required') && doctorForm?.get('phone')?.touched">
+        Campo obligatorio
+      </mat-error>
+      <mat-error *ngIf="doctorForm?.get('phone')?.hasError('maxlength') && doctorForm?.get('phone')?.touched">
+        Máximo 9 dígitos
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -37,19 +45,19 @@
     </mat-form-field> 
 
     <mat-form-field>
-      <mat-label>Birthday (dd/mm/yyyy)</mat-label>
-      <input matInput formControlName="birthday" placeholder="dd/mm/yyyy" (input)="formatDate($event)">
+      <mat-label>Birthday</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="dd/MM/yyyy" readonly>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="month" [panelClass]="'custom-datepicker'"></mat-datepicker>
       <mat-error *ngIf="doctorForm?.get('birthday')?.hasError('required') && doctorForm?.get('birthday')?.touched">Campo obligatorio</mat-error>
     </mat-form-field>
-
+    
+    
     <mat-form-field>
       <mat-label>Specialty</mat-label>
       <input matInput formControlName="specialty" placeholder="Specialty">
       <mat-error *ngIf="doctorForm?.get('specialty')?.hasError('required') && doctorForm?.get('specialty')?.touched">Campo obligatorio</mat-error>
     </mat-form-field> 
-
-    <!-- Otros campos -->
-  
 
     <mat-form-field>
       <mat-label>CMP</mat-label>
@@ -59,8 +67,6 @@
       <mat-error *ngIf="doctorForm.get('cip')?.hasError('maxlength')">Máximo 6 dígitos</mat-error>
     </mat-form-field>
     
-    
-
     <h2>Create User</h2>
 
     <mat-form-field>

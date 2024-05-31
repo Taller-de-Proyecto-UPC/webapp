@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReportService {
-  BASE_URL = 'https://neuralscanstorage.ue.r.appspot.com/api/v1'
+  BASE_URL = 'https://tough-country-423601-c7.rj.r.appspot.com/api/v1'
   constructor(private http: HttpClient) {}
 
   uploadFile(reportId: number, formData: FormData){
@@ -65,6 +65,6 @@ export class ReportService {
   }
 
   makePrediction(img_url: any) {
-    return this.http.post(`https://prediction-mieqagttea-rj.a.run.app/predict`, {"img_url": img_url}, httpOptions);
+    return this.http.post(`https://prediction-xn2d3omsbq-tl.a.run.app/predict`, {"img_url": img_url}, httpOptions);
   }
 }

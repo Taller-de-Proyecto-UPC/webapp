@@ -1,41 +1,45 @@
 <app-navbar></app-navbar>
 <div class="citas-container">
     <h2>Lista de Pacientes</h2>
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" (keydown)="onKeyPress($event)" (input)="onInput($event)" maxlength = "50">
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar pacientes"
+        (keydown)="onKeyPress($event)"
+        (input)="onInput($event)"
+        maxlength="50"
+    />
     <div *ngIf="hasError" style="color: red;">No se permiten caracteres especiales o números</div>
 
     <button mat-raised-button (click)="openCreateDialog()">Crear Paciente</button>
     <table class="doctor-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Email</th>
-          <th>Fecha de Nacimiento</th>
-          <th>Celular</th>
-          <th>DNI</th>
-
-
-          <th> </th>
-          <th> </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let patient of filteredPatients()" class="doctor-item">
-          <td>{{ patient.name }}</td>
-          <td>{{ patient.lastName }}</td>
-          <td>{{ patient.email }}</td>
-          <td>{{ patient.birthday }}</td>
-          <td>{{ patient.phone }}</td>
-          <td>{{ patient.dni }}</td>
-
-          <td>
-            <button mat-button (click)="openDetailDialog(patient)">Examenes</button>
-          </td>
-          <td>
-            <button mat-button (click)="openEditDialog(patient)">Editar</button>
-          </td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Celular</th>
+                <th>DNI</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let patient of filteredPatients()" class="doctor-item">
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.lastName }}</td>
+                <td>{{ patient.email }}</td>
+                <td>{{ patient.birthday }}</td>
+                <td>{{ patient.phone }}</td>
+                <td>{{ patient.dni }}</td>
+                <td>
+                    <button mat-button (click)="openDetailDialog(patient)">Examenes</button>
+                </td>
+                <td>
+                    <button mat-button (click)="openEditDialog(patient)">Editar</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
