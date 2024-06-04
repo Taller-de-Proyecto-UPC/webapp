@@ -17,8 +17,8 @@
         <th>Comments</th>
         <th>Image</th>
         <th>Date</th>
-        <th>Analysis</th>
-        <th *ngIf="isNotUserAdmin"> </th>
+        <th *ngIf="isNotUserAdmin()">Editar</th>
+        <th *ngIf="isNotUserAdmin()">Análisis</th>
       </tr>
     </thead>
     <tbody>
@@ -40,14 +40,13 @@
           </ng-container>
         </td>
         <td>{{ report.image.added }}</td>
-        
-        <td>
-          <button (click)="makePrediction(report)">Analyze</button>
-        </td>
-        <td *ngIf="isNotUserAdmin">
+        <td *ngIf="isNotUserAdmin()">
           <ng-container>
             <button mat-button (click)="openEditDialog(report)">Editar</button>
           </ng-container>
+        </td>
+        <td *ngIf="isNotUserAdmin() && isNotDefaultImage(report)">
+          <button (click)="makePrediction(report)">Analyze</button>
         </td>
       </tr>
     </tbody>

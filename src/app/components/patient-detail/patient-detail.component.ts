@@ -44,10 +44,8 @@ export class PatientDetailComponent implements OnInit{
       const id = params.get('id');
       if (id !== null) {
         this.patientId = id;
-        console.log(this.userService.getUserType())
         this.loadReports(id);
       }
-      console.log(this.patientId)
     })
     this.patientName = this.patientService.getName() ?? ''; // Asigna '' si el nombre es null
   }
@@ -59,8 +57,12 @@ export class PatientDetailComponent implements OnInit{
   }
 
   isNotUserAdmin(): boolean {
-    console.log(this.userService.getUserType())
-    return this.userService.getUserType() == 'admin';
+    return this.userService.getUserType() != 'admin';
+  }
+
+  isNotDefaultImage(report: any): boolean {
+    console.log(!report.image.path.includes("firebasestorage"));
+    return report.image.path.includes("firebasestorage");
   }
   
   getReportImage(report: any): string {
@@ -77,11 +79,7 @@ export class PatientDetailComponent implements OnInit{
     this.patientName = this.patientService.getName() ?? ''; // Asigna '' si el nombre es null
   }
 
-  isSummaryEditable(summary: string): boolean {
-    console.log('Summary:', summary);
-    
-    console.log(summary === 'Tiene aneurisma' || summary === 'No tiene aneurisma');
-
+  isSummaryEditable(summary: string): boolean {    
     return summary === 'Tiene aneurisma' || summary === 'No tiene aneurisma';
   }
 
@@ -132,19 +130,15 @@ export class PatientDetailComponent implements OnInit{
             const currentDate = new Date();
             const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
             const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
-            console.log(url)
             const newImageData: Image = {
                 id: report.id,
                 path: url,
                 added: `${formattedDate} ${formattedTime}`
             };
 
-            console.log(newImageData);
-
             // Envía los datos actualizados al servidor o realiza la edición
             this.imageService.updateImage(report.id, newImageData);
             setTimeout(() => {
-              console.log("Espera de 2 segundos completada");
               location.reload();
             }, 2000);
 
@@ -162,7 +156,6 @@ export class PatientDetailComponent implements OnInit{
 
         // Recarga la página
         setTimeout(() => {
-          console.log("Espera de 2 segundos completada");
           //location.reload();
         }, 2000);
     });
